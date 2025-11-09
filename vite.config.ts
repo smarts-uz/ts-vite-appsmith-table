@@ -23,7 +23,7 @@ export default defineConfig({
       entry: resolve(__dirname, "src/main.tsx"), // now main.tsx
       name: "MyAppsmithComponent",
       fileName: (format) => `app.${format}.js`,
-      formats: ["umd"],
+      formats: ["umd","es"],
     },
   },
   server: {
