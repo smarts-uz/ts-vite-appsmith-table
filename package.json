@@ -1,8 +1,8 @@
 {
-  "name": "appsmith-custom-table",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@teamprodevs/appsmith-custom-table",
+  "version": "0.0.1",
   "type": "module",
+  "keywords": ["appsmith", "custom table", "tanstack table"],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -20,9 +20,7 @@
       "require": "./dist/app.umd.js"
     }
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
+  "files": ["dist"],
   "sideEffects": [
     "**/*.css"
   ],
@@ -70,5 +68,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.45.0",
     "vite": "^7.1.7"
-  }
+  },
+  "author": "Ramz001"
 }
