@@ -21,7 +21,7 @@ function App({ updateModel = () => null }: AppProps) {
   React.useEffect(() => {
     updateModel({ data: [{ id: "hello", data: "smurfs" }] });
   }, []);
-
+  console.log('hello from CDN')
   return (
     <>
       <div className="font-bold  bg-red-400">Blah</div>

@@ -9,6 +9,21 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smarts-uz/ts-vite-appsmith-table.git"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/app.es.js",
+      "require": "./dist/app.umd.js"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "main": "./dist/app.umd.js",
+  "module": "./dist/app.es.js",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",

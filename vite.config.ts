@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import path from "path";
+import { resolve } from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -15,15 +15,19 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "./src"),
     },
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/main.tsx"), // now main.tsx
+      entry: resolve(__dirname, "src/main.tsx"), // now main.tsx
       name: "MyAppsmithComponent",
       fileName: (format) => `app.${format}.js`,
       formats: ["es"],
     },
+  },
+  server: {
+    cors: true,
+    host: true, // so it’s accessible via LAN / ngrok
   },
 });
