@@ -1,0 +1,6 @@
+/app.es.js
+  Access-Control-Allow-Origin: *
+/app.umd.js
+  Access-Control-Allow-Origin: *
+/appsmith-custom-table.css
+  Access-Control-Allow-Origin: *
