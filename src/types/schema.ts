@@ -7,6 +7,7 @@ export enum ColumnType {
   ID = "id",
   DATE = "date",
   CURRENCY = "currency",
+  PHONE = "phone",
 }
 
 // Optional size for some columns

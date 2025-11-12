@@ -21,8 +21,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/ui/table";
-import { Card, CardHeader, CardContent } from "../components/ui/card";
+} from "../ui/table";
+import { Card, CardHeader, CardContent } from "../ui/card";
 import {
   Pagination,
   PaginationContent,
@@ -30,8 +30,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../components/ui/pagination";
-import { Skeleton } from "../components/ui/skeleton";
+} from "../ui/pagination";
+import { Skeleton } from "../ui/skeleton";
 import { toast, Toaster } from "sonner";
 
 // ---- TanStack Query client ----

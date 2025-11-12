@@ -13,22 +13,20 @@ type TableFiltersProps<TData> = {
 };
 
 export function TableFilters<TData>({ column, t }: TableFiltersProps<TData>) {
-  const meta = column.columnDef.meta as
-    | { ColumnType?: ColumnType; headerText?: string }
-    | undefined;
-  const ColumnType = meta?.ColumnType;
-  const metaHeaderText = meta?.headerText;
+  const meta =
+    (column.columnDef.meta as {
+      filterVariant?: ColumnType;
+      headerText?: string;
+    }) ?? {};
+  const { filterVariant } = meta;
   const columnFilterValue = column.getFilterValue();
   const header = column.columnDef.header;
-  const headerText =
-    metaHeaderText || (typeof header === "string" ? header : column.id);
-
-  if (!ColumnType) return null;
+  const headerText = typeof header === "string" ? header : column.id;
 
   const filterId = `filter-${column.id}`;
 
   const renderFilter = () => {
-    switch (ColumnType) {
+    switch (filterVariant) {
       case ColumnType.TEXT:
       case ColumnType.ID:
         return (
