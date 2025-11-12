@@ -5,7 +5,7 @@
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    
+
     /* Emit types */
     "declaration": true,
     "declarationDir": "./dist",
@@ -24,10 +24,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    
-    "baseUrl": ".",
+
     "paths": {
-      "@/*": ["./src/*"]
+      "app": ["./src/index.ts"]
     }
   },
   "include": ["src"]
