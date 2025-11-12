@@ -3,7 +3,6 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import dts from "vite-plugin-dts";
-import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +13,6 @@ export default defineConfig({
       rollupTypes: true,
       tsconfigPath: resolve(__dirname, "tsconfig.app.json"),
     }),
-    tailwindcss(),
   ],
   resolve: {
     alias: {
