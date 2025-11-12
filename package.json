@@ -28,7 +28,7 @@
       "import": "./dist/app.js",
       "require": "./dist/app.umd.cjs"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/app.css": "./dist/app.css"
   },
   "files": [
     "dist"
