@@ -24,10 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-
-    "paths": {
-      "app": ["./src/index.ts"]
-    }
   },
   "include": ["src"]
 }

@@ -29,9 +29,9 @@ import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(["dist", "node_modules"]),
+  globalIgnores(["dist", "node_modules", "old"]),
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["/**/*.{ts,tsx}"],
     // Keep minimal essential configs
     extends: [
       js.configs.recommended, // basic JS errors
