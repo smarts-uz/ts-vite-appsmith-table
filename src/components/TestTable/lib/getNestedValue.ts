@@ -1,11 +1,11 @@
 type AnyObject = Record<string, any>;
 
-export function getNestedValue<T extends AnyObject = AnyObject>(
+export function getNestedValue<T>(
   obj: AnyObject | null | undefined,
-  path: string,
+  path?: string,
   defaultValue: T[] = []
 ): T[] {
-  if (!path || typeof path !== "string" || !obj) {
+  if (!obj || !path) {
     return defaultValue;
   }
 
@@ -15,7 +15,7 @@ export function getNestedValue<T extends AnyObject = AnyObject>(
     .split(".")
     .filter(Boolean);
 
-  const result = pathArray.reduce((acc: any, key) => acc?.[key], obj);
+  const result = pathArray.reduce<any>((acc, key) => acc?.[key], obj);
 
   return Array.isArray(result) ? (result as T[]) : defaultValue;
 }
