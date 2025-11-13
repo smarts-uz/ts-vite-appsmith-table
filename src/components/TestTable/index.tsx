@@ -33,9 +33,6 @@ const fallbackModel = {
   rowSelectionAction: "",
   actionColumn: {},
   rowIndexColumn: {},
-  colors: {},
-  showBorder: true,
-  rowStyleRules: [],
   translations: {},
   fetcher: {},
 };
