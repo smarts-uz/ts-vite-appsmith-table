@@ -8,7 +8,7 @@ import {
 import { THead } from "../TanstackTable/head";
 import TBody from "../TanstackTable/body";
 import { createColumns } from "./columns";
-import { TableFilters } from "./Filters";
+import { TableFilters } from "./filter";
 import { getT } from "./lib/getT";
 import {
   useQuery,
@@ -20,7 +20,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { fetcherFN } from "./lib/fetcherFN";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import type { TableModel } from "./table.types";
-import { postsTableSchema } from "@/types/mock";
+import { postsTableSchema } from "@/lib/mock";
 import { defaultTranslations } from "./lib/translations";
 import { HTTP_METHODS } from "./table.types";
 

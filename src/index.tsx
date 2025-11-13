@@ -5,7 +5,7 @@ import { createRoot } from "react-dom/client";
 import "./tailwind.css";
 import TestTable from "./components/TestTable";
 import React from "react";
-import { postsTableSchema } from "./types/mock";
+import { postsTableSchema } from "./lib/mock";
 
 export const mockModel = {
   fetcher: {

@@ -1,4 +1,4 @@
-import { type TableSchema, ColumnType } from "./schema";
+import { type TableSchema, ColumnType } from "../types/schema";
 import { ItemSize } from "@/components/TestTable/table.types";
 
 export const postsTableSchema: TableSchema = {
