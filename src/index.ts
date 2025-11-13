@@ -1,3 +1,3 @@
-import TestTable from "./components/TestTable";
+import AppsmithTable from "./widgets/AppsmithTable";
 
-export { TestTable as Table };
+export { AppsmithTable };

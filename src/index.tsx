@@ -3,9 +3,9 @@ import "./tailwind.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./tailwind.css";
-import TestTable from "./components/TestTable";
+import AppsmithTable from "./widgets/AppsmithTable";
+import { postsTableSchema } from "./widgets/AppsmithTable/lib/mock.schema";
 import React from "react";
-import { postsTableSchema } from "./lib/mock";
 
 export const mockModel = {
   fetcher: {
@@ -17,6 +17,6 @@ export const mockModel = {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TestTable model={mockModel} />
+    <AppsmithTable model={mockModel} />
   </StrictMode>
 );

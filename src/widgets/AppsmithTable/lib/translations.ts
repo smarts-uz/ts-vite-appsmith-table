@@ -20,4 +20,4 @@ export const defaultTranslations = {
   unpinRow: "Unpin row",
   pinToTop: "Pin to top",
   pinToBottom: "Pin to bottom",
-};
+} as const;

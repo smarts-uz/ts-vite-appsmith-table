@@ -1,7 +1,6 @@
-import { type TableSchema, ColumnType } from "../types/schema";
-import { ItemSize } from "@/components/TestTable/table.types";
+import { ColumnType, ItemSize } from "../constants";
 
-export const postsTableSchema: TableSchema = {
+export const postsTableSchema = {
   userId: {
     type: ColumnType.NUMBER,
     title: "User ID",

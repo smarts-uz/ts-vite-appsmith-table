@@ -5,10 +5,10 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { THead } from "../TanstackTable/head";
-import TBody from "../TanstackTable/body";
+import TanstackTableBody from "@/components/tanstack-table/body";
+import TanstackTableHead from "@/components/tanstack-table/head";
 import { createColumns } from "./columns";
-import { TableFilters } from "./filter";
+import { TableFilters } from "./components/filters";
 import { getT } from "./lib/getT";
 import {
   useQuery,
@@ -18,11 +18,11 @@ import {
 import { Toaster } from "sonner";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { fetcherFN } from "./lib/fetcherFN";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import type { TableModel } from "./table.types";
-import { postsTableSchema } from "@/lib/mock";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import { postsTableSchema } from "@/widgets/AppsmithTable/lib/mock.schema";
 import { defaultTranslations } from "./lib/translations";
-import { HTTP_METHODS } from "./table.types";
+import type { TableModel } from "./types";
+import { HTTP_METHODS } from "./constants";
 
 interface TableProps {
   model: TableModel;
@@ -109,7 +109,7 @@ function Table({
         }
       }
     }
-    if (rowActions?.length > 0) {
+    if (rowActions && rowActions?.length > 0) {
       if (actionColumn?.pin === "left") {
         left.push("actions");
       } else if (actionColumn?.pin === "right") {
@@ -130,7 +130,6 @@ function Table({
     schema,
     rowActions,
     indexRow,
-    actionPin,
   });
 
   const table = useReactTable({
@@ -200,15 +199,15 @@ function Table({
           className="table table-fixed table-pin-rows table-pin-cols w-full"
           style={{ minWidth: table.getTotalSize() }}
         >
-          <THead table={table} />
-          <TBody table={table} />
+          <TanstackTableHead table={table} />
+          <TanstackTableBody table={table} />
         </table>
       </CardContent>
     </Card>
   );
 }
 
-export function MainTable(props: any) {
+function AppsmithTable(props: any) {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster />
@@ -218,4 +217,4 @@ export function MainTable(props: any) {
   );
 }
 
-export default MainTable;
+export default AppsmithTable;

@@ -1,10 +1,9 @@
 import type { Column } from "@tanstack/react-table";
-
 import { TableFilterText } from "./filter-text";
 import { TableFilterBoolean } from "./filter-bool";
 import { TableFilterNumber } from "./filter-num";
 import { TableFilterEnum } from "./filter-enum";
-import { ColumnType } from "@/types/schema";
+import { ColumnType } from "../constants";
 import { TableFilterId } from "./filter-id";
 
 type TableFiltersProps<TData> = {

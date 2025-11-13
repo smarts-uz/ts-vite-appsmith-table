@@ -1,15 +1,17 @@
 type Translations = Record<string, string> | undefined;
 type Replacements = Record<string, string>;
 
-export const getT =
-  (translations: Translations, defaultTranslations: Translations) =>
-  <K extends keyof typeof defaultTranslations>(
-    key: K,
+export const getT = <T extends Record<string, string>>(
+  translations: Translations,
+  defaultTranslations: T
+) => {
+  return (
+    key: keyof T | string,
     replacements: Replacements = {}
   ): string => {
     const template =
       (translations && translations[key as string]) ??
-      (defaultTranslations && defaultTranslations[key as string]);
+      (defaultTranslations && defaultTranslations[key as keyof T]);
 
     if (!template) {
       return String(key);
@@ -20,3 +22,4 @@ export const getT =
       template
     );
   };
+};

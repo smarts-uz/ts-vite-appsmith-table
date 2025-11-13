@@ -9,7 +9,7 @@ interface HeadProps<TData> {
   className?: string;
 }
 
-export const THead = <TData,>({ table, className }: HeadProps<TData>) => {
+const TanstackTableHead = <TData,>({ table, className }: HeadProps<TData>) => {
   return (
     <TableHeader>
       {table.getHeaderGroups().map((headerGroup) => (
@@ -45,3 +45,4 @@ export const THead = <TData,>({ table, className }: HeadProps<TData>) => {
     </TableHeader>
   );
 };
+export default TanstackTableHead;

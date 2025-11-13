@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
+import type { RowAction } from "../types";
 import {
   DropdownMenu,
+  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import type { RowAction } from "./table.types";
+} from "@/components/ui/dropdown-menu";
 
 export const IndexCell = ({
   row,

@@ -1,6 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import { IndexCell, ActionCell } from "./TableCells";
-import { type ColumnParams, ItemSize } from "./table.types";
+import { IndexCell, ActionCell } from "./components/cells";
+import { type ColumnParams } from "./types";
+import { ItemSize } from "./constants";
 
 export function createColumns<TData>({
   data,

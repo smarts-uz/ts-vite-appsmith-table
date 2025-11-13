@@ -1,21 +1,29 @@
-import type { ColumnType } from "@/types/schema";
+import { ColumnType, ItemSize, PinDirection, HTTP_METHODS } from "../constants";
+
+export type ColumnSchema = {
+  type: ColumnType;
+  title?: string;
+  sort?: boolean;
+  filter?: boolean;
+  size?: ItemSize;
+};
 
 export type RowAction = {
   title: string;
   onClick: string;
 };
 
-export enum ItemSize {
-  "xs" = "xs",
-  "sm" = "sm",
-  "md" = "md",
-  "lg" = "lg",
-}
+type ActionColumn = {
+  enable: boolean;
+  pin: PinDirection | null;
+  size: ItemSize;
+};
 
-export enum PinDirection {
-  left = "left",
-  right = "right",
-}
+type IndexRow = {
+  enable: boolean;
+  size: ItemSize;
+  pin: PinDirection | null;
+};
 
 export type ColumnSchemaItem = {
   type: ColumnType;
@@ -31,21 +39,7 @@ export type ColumnSchemaItem = {
   maxOptions?: number[];
 };
 
-type IndexRow = {
-  enable: boolean;
-  size: ItemSize;
-  pin: PinDirection | null;
-};
-
-export enum HTTP_METHODS {
-  "GET" = "GET",
-  "POST" = "POST",
-  "PUT" = "PUT",
-  "DELETE" = "DELETE",
-  "PATCH" = "PATCH",
-}
-
-type Fetcher = {
+export type Fetcher = {
   url: string;
   method: HTTP_METHODS;
   headers?: Record<string, string>;
@@ -59,12 +53,6 @@ export type ColumnParams<TData> = {
   indexRow?: IndexRow;
   rowActions?: RowAction[];
   actionColumn?: ActionColumn;
-};
-
-type ActionColumn = {
-  enable: boolean;
-  pin: PinDirection | null;
-  size: ItemSize;
 };
 
 export type TableModel = {

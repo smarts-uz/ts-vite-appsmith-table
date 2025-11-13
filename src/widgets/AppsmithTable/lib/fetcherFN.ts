@@ -1,11 +1,8 @@
+import { HTTP_METHODS } from "../constants";
 import { getNestedValue } from "./getNestedValue";
+import type { Fetcher } from "../types";
 
-type FetcherOptions = {
-  url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
-  headers?: Record<string, string>;
-  body?: BodyInit | null;
-  accessor?: string; 
+type FetcherOptions = Fetcher & {
   cb?: (data: any) => void;
 };
 
@@ -13,7 +10,7 @@ export const fetcherFN = async <T = unknown>({
   url,
   headers,
   body,
-  method = "GET",
+  method = HTTP_METHODS.GET,
   accessor,
   cb,
 }: FetcherOptions): Promise<T[]> => {

@@ -9,7 +9,7 @@ type BodyProps<TData extends RowData> = {
   rowClassName?: string;
 };
 
-function TBody<TData extends RowData>({
+function TanstackTableBody<TData extends RowData>({
   table,
   className,
   rowClassName,
@@ -35,4 +35,4 @@ function TBody<TData extends RowData>({
   );
 }
 
-export default TBody;
+export default TanstackTableBody;
