@@ -28,3 +28,11 @@ export enum ColumnType {
   CURRENCY = "currency",
   PHONE = "phone",
 }
+
+export enum SIZE_MAP {
+  xs = 40,
+  sm = 80,
+  md = 120,
+  lg = 160,
+  xl = 200,
+}

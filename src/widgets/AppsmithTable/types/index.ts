@@ -1,74 +1,26 @@
 import { ColumnType, ItemSize, PinDirection, HTTP_METHODS } from "../constants";
 import z from "zod";
-
-export type ColumnSchema = {
-  type: ColumnType;
-  title?: string;
-  sort?: boolean;
-  filter?: boolean;
-  size?: ItemSize;
-};
-
-export type RowAction = {
-  title: string;
-  onClick: string;
-};
-
-type ActionColumn = {
-  enable: boolean;
-  pin?: PinDirection;
-  size: ItemSize;
-};
-
-type IndexRow = {
-  enable: boolean;
-  size: ItemSize;
-  pin?: PinDirection | null;
-};
-
-export type ColumnSchemaItem = {
-  type: ColumnType;
-  options?: { value: string; title: string }[];
-  sort?: boolean;
-  filter?: boolean;
-  pin?: PinDirection | null;
-  size?: ItemSize;
-  title?: string;
-  minOptions?: number[];
-  maxOptions?: number[];
-};
-
-export type Fetcher = {
-  url: string;
-  method: HTTP_METHODS;
-  headers?: Record<string, string>;
-  body?: BodyInit;
-  accessor?: string;
-};
-
-export type ColumnParams<TData> = {
-  data: TData[];
-  schema: Record<string, ColumnSchemaItem>;
-  indexRow?: IndexRow;
-  rowActions?: RowAction[];
-  actionColumn?: ActionColumn;
-  triggerEvent: TriggerEvent;
-};
-
+import { type LucideIconName } from "./icons";
+import * as LucideIcons from "lucide-react";
+// export type ColumnParams = {
+//   schema: Record<string, ColumnItem>;
+//   indexRow?: IndexRow;
+//   rowActions?: RowAction[];
+//   actionColumn?: ActionColumn;
+//   triggerEvent: TriggerEvent;
+// };
 export type TriggerEvent = (key: string, data: any) => void;
 
-const ColumnSchemaItemSchema = z.object({
+const ColumnItemSchema = z.object({
   type: z.enum(ColumnType),
   options: z
     .array(z.object({ value: z.string(), title: z.string() }))
     .optional(),
   sort: z.boolean().optional(),
   filter: z.boolean().optional(),
-  pin: z.enum(PinDirection).nullable().optional(),
   size: z.enum(ItemSize).optional(),
   title: z.string().optional(),
-  minOptions: z.array(z.number()).optional(),
-  maxOptions: z.array(z.number()).optional(),
+  className: z.string().optional(),
 });
 
 const FetcherSchema = z.object({
@@ -79,28 +31,38 @@ const FetcherSchema = z.object({
   accessor: z.string().optional(),
 });
 
+export const IndexRowSchema = z.object({
+  enable: z.boolean().optional(),
+  size: z.enum(ItemSize).default(ItemSize.sm).optional(),
+});
+
+export const ActionColumnSchema = z.object({
+  enable: z.boolean(),
+  size: z.enum(ItemSize).default(ItemSize.md),
+  pin: z.enum(PinDirection).default(PinDirection.right),
+});
+
+export const RowActionSchema = z.object({
+  title: z.string(),
+  onClick: z.string(),
+  icon: z
+    .enum(Object.keys(LucideIcons) as [LucideIconName, ...LucideIconName[]])
+    .optional(),
+});
+
 export const TableModelSchema = z.object({
   fetcher: FetcherSchema,
-  schema: z.record(z.string(), ColumnSchemaItemSchema),
-  indexRow: z
-    .object({
-      enable: z.boolean(),
-      size: z.enum(ItemSize),
-      pin: z.enum(PinDirection).nullable(),
-    })
-    .optional(),
-  rowActions: z
-    .array(z.object({ title: z.string(), onClick: z.string() }))
-    .optional(),
+  schema: z.record(z.string(), ColumnItemSchema),
+  indexRow: IndexRowSchema,
+  rowActions: z.array(RowActionSchema).optional(),
   rowSelectionAction: z.string().optional(),
-  actionColumn: z
-    .object({
-      enable: z.boolean(),
-      size: z.enum(ItemSize).default(ItemSize.md),
-      pin: z.enum(PinDirection).nullable(),
-    })
-    .optional(),
+  actionColumn: ActionColumnSchema.optional(),
   translations: z.record(z.string(), z.string()).optional(),
 });
 
+export type ColumnItem = z.infer<typeof ColumnItemSchema>;
 export type TableModel = z.infer<typeof TableModelSchema>;
+export type IndexRow = z.infer<typeof IndexRowSchema>;
+export type ActionColumn = z.infer<typeof ActionColumnSchema>;
+export type RowAction = z.infer<typeof RowActionSchema>;
+export type Fetcher = z.infer<typeof FetcherSchema>;

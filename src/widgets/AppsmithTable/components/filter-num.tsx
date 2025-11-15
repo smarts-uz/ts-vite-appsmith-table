@@ -55,7 +55,7 @@ export function TableFilterNumber<TData>({
     TODO: Fix why columnFilterValue is not working
   
   */
-  console.log("column", columnFilterValue);
+ 
   const minValue = isEmpty(columnFilterValue?.min)
     ? EMPTY_OPTION
     : String(columnFilterValue?.min);

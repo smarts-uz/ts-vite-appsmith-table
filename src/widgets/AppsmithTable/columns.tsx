@@ -1,29 +1,34 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { ActionCell } from "./components/action-cell";
-import { type ColumnParams } from "./types";
-import { ItemSize } from "./constants";
+import { ItemSize, SIZE_MAP } from "./constants";
 import IndexCell from "./components/index-cell";
+import { TableModelSchema, type TriggerEvent } from "./types";
+import type z from "zod";
+
+const CreateColumns = TableModelSchema.omit({
+  fetcher: true,
+  translations: true,
+  rowSelectionAction: true,
+});
+
+type CreateColumnsProps = z.infer<typeof CreateColumns> & {
+  triggerEvent: TriggerEvent;
+};
 
 export function createColumns<TData>({
-  data,
   schema,
   indexRow,
   rowActions = [],
   actionColumn,
   triggerEvent,
-}: ColumnParams<TData>): ColumnDef<TData>[] {
-  if (!data.length) return [];
-
-  const sizeMap = { xs: 40, sm: 80, md: 120, lg: 160, xl: 200 };
-
+}: CreateColumnsProps): ColumnDef<TData>[] {
   const indexColumns: ColumnDef<TData>[] = [];
   if (indexRow?.enable) {
     indexColumns.push({
       id: "#",
       header: "#",
-      size: sizeMap[indexRow.size] || sizeMap.xs,
-      // @ts-expect-error: 'pin' is not part of ColumnDef, but used by the table implementation
-      pin: indexRow.pin,
+      size: SIZE_MAP[indexRow.size || ItemSize.xs],
+      enablePinning: true,
       cell: ({ row, table }) => <IndexCell row={row} table={table} />,
     });
   }
@@ -40,7 +45,7 @@ export function createColumns<TData>({
               <span onClick={() => column.toggleSorting()}>{headerText}</span>
             )
           : headerText,
-        size: sizeMap[size] || sizeMap.lg,
+        size: SIZE_MAP[size || ItemSize.md],
         enableSorting: sort,
         enableColumnFilter: filter,
         meta: {
@@ -51,19 +56,16 @@ export function createColumns<TData>({
         cell: (info) => String(info.getValue() ?? ""),
       };
 
-      // add type-specific filters & rendering here...
       return colDef;
     })
     .filter(Boolean) as ColumnDef<TData>[];
 
   const actionColumns: ColumnDef<TData>[] = [];
-  if (indexRow?.enable && rowActions.length) {
+  if (actionColumn?.enable && rowActions.length > 0) {
     actionColumns.push({
       id: "actions",
       header: "",
-      size: sizeMap[actionColumn?.size || ItemSize.md],
-      // @ts-expect-error 'pin' is not a known property of ColumnDef but is used for custom logic
-      pin: actionPin,
+      size: SIZE_MAP[actionColumn?.size || ItemSize.md],
       cell: ({ row }) => (
         <ActionCell
           triggerEvent={triggerEvent}
@@ -73,6 +75,8 @@ export function createColumns<TData>({
       ),
     });
   }
-
+  // console.log(indexColumns, indexRow, actionColumns, rowActions, actionColumn)
+  // console.log("index", indexRow, indexColumns);
+  console.log("actions", rowActions, actionColumn, actionColumns);
   return [...indexColumns, ...autoCols, ...actionColumns];
 }

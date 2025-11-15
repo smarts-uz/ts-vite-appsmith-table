@@ -22,7 +22,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { postsTableSchema } from "@/widgets/AppsmithTable/lib/mock.schema";
 import { defaultTranslations } from "./lib/translations";
 import type { TableModel, TriggerEvent } from "./types";
-import { HTTP_METHODS } from "./constants";
+import { HTTP_METHODS, PinDirection } from "./constants";
 import { validateTableModel } from "./validator/validateTableModal";
 import { Table } from "@/components/ui/table";
 import { InfoCard } from "./components/info-card";
@@ -34,12 +34,13 @@ interface TableProps {
   triggerEvent?: TriggerEvent;
 }
 
-const fallbackModel = {
+const fallbackModel: TableModel = {
   fetcher: {
     url: "https://jsonplaceholder.typicode.com/users",
     method: HTTP_METHODS.GET,
   },
   schema: postsTableSchema,
+  indexRow: {},
 };
 
 const queryClient = new QueryClient({
@@ -107,18 +108,18 @@ function CustomTable({
       for (const colKey in schema) {
         if (Object.prototype.hasOwnProperty.call(schema, colKey)) {
           const colSchema = schema[colKey];
-          if (colSchema && colSchema.pin === "left") {
+          if (colSchema) {
             left.push(colKey);
-          } else if (colSchema && colSchema.pin === "right") {
+          } else if (colSchema) {
             right.push(colKey);
           }
         }
       }
     }
     if (rowActions && rowActions?.length > 0) {
-      if (actionColumn?.pin === "left") {
+      if (actionColumn?.pin === PinDirection.left) {
         left.push("actions");
-      } else if (actionColumn?.pin === "right") {
+      } else if (actionColumn?.pin === PinDirection.right) {
         right.push("actions");
       }
     }
@@ -132,10 +133,10 @@ function CustomTable({
   }, [getInitialPinning]);
 
   const columns = createColumns({
-    data,
     schema,
     rowActions,
     indexRow,
+    actionColumn,
     triggerEvent,
   });
 
@@ -160,25 +161,25 @@ function CustomTable({
     enableMultiRowSelection: false,
   });
 
-  React.useEffect(() => {
-    const selectedRowId = Object.keys(rowSelection)[0];
+  // React.useEffect(() => {
+  //   const selectedRowId = Object.keys(rowSelection)[0];
 
-    if (!selectedRowId) {
-      updateModel({ selectedRow: {} });
-      return;
-    }
+  //   if (!selectedRowId) {
+  //     updateModel({ selectedRow: {} });
+  //     return;
+  //   }
 
-    const selectedRow = table.getRow(selectedRowId);
+  //   const selectedRow = table.getRow(selectedRowId);
 
-    if (selectedRow) {
-      updateModel({ selectedRow: selectedRow.original });
-      if (rowSelectionAction) {
-        triggerEvent(rowSelectionAction, {
-          row: selectedRow.original,
-        });
-      }
-    }
-  }, [rowSelection, rowSelectionAction, table]);
+  //   if (selectedRow) {
+  //     updateModel({ selectedRow: selectedRow.original });
+  //     if (rowSelectionAction) {
+  //       triggerEvent(rowSelectionAction, {
+  //         row: selectedRow.original,
+  //       });
+  //     }
+  //   }
+  // }, [rowSelection, rowSelectionAction, table]);
 
   if (!isValid) {
     return (

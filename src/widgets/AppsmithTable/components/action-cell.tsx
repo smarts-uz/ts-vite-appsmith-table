@@ -7,44 +7,76 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import * as LucideIcons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 type ActionCellProps<TData> = {
   row: Row<TData>;
-  table?: Table<TData>; // optional if needed
+  table?: Table<TData>;
   rowActions: RowAction[];
   triggerEvent: TriggerEvent;
 };
 
-export const ActionCell = <TData,>({
+// Fallback icon
+const ICON_FALLBACK = LucideIcons.Info;
+
+export function ActionCell<TData>({
   row,
   rowActions,
   triggerEvent,
-}: ActionCellProps<TData>) => {
-  const handleAction = (
-    e: React.MouseEvent<HTMLDivElement>,
-    eventName: string
-  ) => {
-    e.stopPropagation();
+}: ActionCellProps<TData>) {
+  const handleAction = (eventName: string) => {
     triggerEvent(eventName, { row: row.original });
   };
 
+  const onlyOne = rowActions.length === 1;
+
+  // Render icon from LucideIcons dynamically
+  const renderIcon = (iconName?: keyof typeof LucideIcons) => {
+    const Icon =
+      iconName && LucideIcons[iconName]
+        ? (LucideIcons[iconName] as LucideIcon)
+        : ICON_FALLBACK;
+    return <Icon className="w-4 h-4" />;
+  };
+
+  // 1️⃣ Single action → simple button
+  if (onlyOne) {
+    const action = rowActions[0];
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        className="w-full h-full p-2 flex items-center gap-2"
+        onClick={() => handleAction(action.onClick)}
+      >
+        {renderIcon(action.icon as keyof typeof LucideIcons)}
+      </Button>
+    );
+  }
+
+  // 2️⃣ Multiple actions → dropdown
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="w-full h-full">
-          <span className="icon icon-circle-ellipsis" />
+      <DropdownMenuTrigger>
+        <Button variant="ghost" size="sm" className="w-full h-full p-2">
+          <LucideIcons.MoreVertical className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-56">
+
+      <DropdownMenuContent align="end" className="w-56">
         {rowActions.map((action, i) => (
           <DropdownMenuItem
             key={i}
-            onClick={(e) => handleAction(e, action.onClick)}
+            onClick={() => handleAction(action.onClick)}
           >
-            {action.title}
+            <div className="flex items-center gap-2">
+              {renderIcon(action.icon as keyof typeof LucideIcons)}
+              {action.title}
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
+}
