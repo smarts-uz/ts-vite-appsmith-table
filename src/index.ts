@@ -1,3 +1,3 @@
-import AppsmithTable from "./widgets/AppsmithTable";
+import AppsmithTable from "./widgets/AppsmithTable/AppsmithTable";
 
 export { AppsmithTable };

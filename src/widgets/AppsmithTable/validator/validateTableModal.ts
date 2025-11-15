@@ -1,25 +1,22 @@
-import { toast } from "sonner";
 import { TableModelSchema, type TableModel } from "../types";
 import z from "zod";
 
-export function validateTableModel(model: TableModel) {
-  try {
-    return TableModelSchema.parse(model);
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      // Combine all messages
-      const message = err.issues.map((e) => e.message).join("\n");
+// Define a discriminated union for the return type
+type ValidationResult =
+  | { success: true }
+  | { success: false; error: string | unknown };
 
-      toast.error(message, {
-        duration: 10000, // optional: keep it visible for 10s
-        richColors: true,
-      });
+export function validateTableModel(model: TableModel): ValidationResult {
+  try {
+    TableModelSchema.parse(model);
+    return { success: true };
+  } catch (err) {
+    console.error(err);
+    if (err instanceof z.ZodError) {
+      const message = err.issues.map((e) => e.message).join("\n");
+      return { success: false, error: message };
     } else {
-      toast.error("Unknown table validation error", {
-        duration: 10000,
-        richColors: true,
-      });
+      return { success: false, error: err };
     }
-    return false;
   }
 }

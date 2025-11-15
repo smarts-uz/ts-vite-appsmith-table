@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-table";
 import TanstackTableBody from "@/components/tanstack-table/body";
 import TanstackTableHead from "@/components/tanstack-table/head";
-import { createColumns } from "./columns";
+import { createColumns } from "./createColumns";
 import { TableFilters } from "./components/filters";
 import { getT } from "./lib/getT";
 import {
@@ -19,7 +19,6 @@ import { Toaster } from "sonner";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { fetcherFN } from "./lib/fetcherFN";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { postsTableSchema } from "@/widgets/AppsmithTable/lib/mock.schema";
 import { defaultTranslations } from "./lib/translations";
 import type { TableModel, TriggerEvent } from "./types";
 import { HTTP_METHODS, PinDirection } from "./constants";
@@ -34,15 +33,6 @@ interface TableProps {
   triggerEvent?: TriggerEvent;
 }
 
-const fallbackModel: TableModel = {
-  fetcher: {
-    url: "https://jsonplaceholder.typicode.com/users",
-    method: HTTP_METHODS.GET,
-  },
-  schema: postsTableSchema,
-  indexRow: {},
-};
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -53,17 +43,11 @@ const queryClient = new QueryClient({
   },
 });
 
-/* 
-  TODO: 1. If data does not match schema it should not be rendered. 
-*/
-
 function CustomTable({
-  model = fallbackModel,
+  model,
   updateModel = () => {},
   triggerEvent = () => {},
 }: TableProps) {
-  const isValid = validateTableModel(model);
-
   const {
     schema,
     rowActions,
@@ -73,6 +57,7 @@ function CustomTable({
     translations,
     fetcher,
   } = model;
+
   const { url, method, headers, body, accessor } = fetcher;
 
   const { data = [], isLoading } = useQuery({
@@ -171,15 +156,6 @@ function CustomTable({
     }
   }, [rowSelection, rowSelectionAction, table]);
 
-  if (!isValid) {
-    return (
-      <InfoCard
-        message="Table configuration is invalid. Check the errors above."
-        variant="warning"
-      />
-    );
-  }
-
   if (isLoading) {
     return <SkeletonTable />;
   }
@@ -212,11 +188,24 @@ function CustomTable({
 }
 
 function AppsmithTable(props: TableProps) {
+  const validation = validateTableModel(props.model);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
+      <Toaster position="bottom-center" />
       <ReactQueryDevtools initialIsOpen={false} />
-      <CustomTable {...props} />
+      {validation.success ? (
+        <CustomTable {...props} />
+      ) : (
+        <InfoCard
+          message={
+            typeof validation.error === "string"
+              ? validation.error
+              : "Table configuration is invalid. Check the errors above."
+          }
+          variant="error"
+        />
+      )}
     </QueryClientProvider>
   );
 }

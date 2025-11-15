@@ -3,7 +3,7 @@ import "./tailwind.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./tailwind.css";
-import AppsmithTable from "./widgets/AppsmithTable";
+import AppsmithTable from "./widgets/AppsmithTable/AppsmithTable";
 import { postsTableSchema } from "./widgets/AppsmithTable/lib/mock.schema";
 import { ItemSize, PinDirection } from "./widgets/AppsmithTable/constants";
 import React from "react";

@@ -23,7 +23,7 @@ const FetcherSchema = z.object({
 });
 
 export const IndexRowSchema = z.object({
-  enable: z.boolean().optional(),
+  enable: z.boolean(),
   size: z.enum(ItemSize).default(ItemSize.sm).optional(),
 });
 
@@ -43,8 +43,10 @@ export const RowActionSchema = z.object({
 
 export const TableModelSchema = z.object({
   fetcher: FetcherSchema,
-  schema: z.record(z.string(), ColumnItemSchema),
-  indexRow: IndexRowSchema,
+  schema: z.record(z.string(), ColumnItemSchema, {
+    error: "Schema not provided",
+  }),
+  indexRow: IndexRowSchema.optional(),
   rowActions: z.array(RowActionSchema).optional(),
   rowSelectionAction: z.string().optional(),
   actionColumn: ActionColumnSchema.optional(),
