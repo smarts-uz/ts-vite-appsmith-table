@@ -90,7 +90,7 @@ const meta: Meta<typeof AppsmithTable> = {
     // Other actions
     triggerEvent: { action: "triggerEvent" },
     updateModel: { action: "updateModel" },
-  } as any,
+  } ,
 };
 
 export default meta;
