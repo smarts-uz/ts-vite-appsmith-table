@@ -21,7 +21,10 @@ function TanstackTableBody<TData extends RowData>({
           {row.getVisibleCells().map((cell) => (
             <TableCell
               key={cell.id}
-              className={cn("whitespace-normal break-words", rowClassName)}
+              className={cn(
+                "whitespace-normal break-words border rounded-xl",
+                rowClassName
+              )}
             >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </TableCell>

@@ -22,7 +22,7 @@ const TanstackTableHead = <TData,>({
               key={header.id}
               colSpan={header.colSpan}
               className={cn(
-                "whitespace-normal break-words",
+                "whitespace-normal break-words ",
                 rowClassName,
                 header.column.getCanSort() ? "cursor-pointer" : ""
               )}

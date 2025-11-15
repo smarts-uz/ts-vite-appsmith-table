@@ -31,7 +31,6 @@ export function ActionCell<TData>({
 
   const onlyOne = rowActions.length === 1;
 
-  // Render icon from LucideIcons dynamically
   const renderIcon = (iconName?: keyof typeof LucideIcons) => {
     const Icon =
       iconName && LucideIcons[iconName]
@@ -40,7 +39,6 @@ export function ActionCell<TData>({
     return <Icon className="w-4 h-4" />;
   };
 
-  // 1️⃣ Single action → simple button
   if (onlyOne) {
     const action = rowActions[0];
     return (
@@ -55,12 +53,11 @@ export function ActionCell<TData>({
     );
   }
 
-  // 2️⃣ Multiple actions → dropdown
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Button variant="ghost" asChild size="sm" className="w-full h-full p-2">
-          <LucideIcons.MoreVertical className="w-4 h-4" />
+          <LucideIcons.MoreHorizontal className="w-4 h-4" />
         </Button>
       </DropdownMenuTrigger>
 

@@ -151,25 +151,25 @@ function CustomTable({
     enableMultiRowSelection: false,
   });
 
-  // React.useEffect(() => {
-  //   const selectedRowId = Object.keys(rowSelection)[0];
+  React.useEffect(() => {
+    const selectedRowId = Object.keys(rowSelection)[0];
 
-  //   if (!selectedRowId) {
-  //     updateModel({ selectedRow: {} });
-  //     return;
-  //   }
+    if (!selectedRowId) {
+      updateModel({ selectedRow: {} });
+      return;
+    }
 
-  //   const selectedRow = table.getRow(selectedRowId);
+    const selectedRow = table.getRow(selectedRowId);
 
-  //   if (selectedRow) {
-  //     updateModel({ selectedRow: selectedRow.original });
-  //     if (rowSelectionAction) {
-  //       triggerEvent(rowSelectionAction, {
-  //         row: selectedRow.original,
-  //       });
-  //     }
-  //   }
-  // }, [rowSelection, rowSelectionAction, table]);
+    if (selectedRow) {
+      updateModel({ selectedRow: selectedRow.original });
+      if (rowSelectionAction) {
+        triggerEvent(rowSelectionAction, {
+          row: selectedRow.original,
+        });
+      }
+    }
+  }, [rowSelection, rowSelectionAction, table]);
 
   if (!isValid) {
     return (

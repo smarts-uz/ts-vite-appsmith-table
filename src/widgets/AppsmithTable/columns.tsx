@@ -26,7 +26,6 @@ export function createColumns<TData>({
   if (indexRow?.enable) {
     indexColumns.push({
       id: "#",
-      header: "#",
       size: SIZE_MAP[indexRow.size || ItemSize.xs],
       cell: ({ row, table }) => <IndexCell row={row} table={table} />,
     });
@@ -74,8 +73,5 @@ export function createColumns<TData>({
       ),
     });
   }
-  // console.log(indexColumns, indexRow, actionColumns, rowActions, actionColumn)
-  // console.log("index", indexRow, indexColumns);
-  console.log("actions", rowActions, actionColumn, actionColumns);
   return [...indexColumns, ...autoCols, ...actionColumns];
 }

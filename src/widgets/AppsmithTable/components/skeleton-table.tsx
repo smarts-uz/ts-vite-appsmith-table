@@ -7,8 +7,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export function SkeletonTable({ cols = 5, rows = 20 }) {
+type SkeletonProps = { rows?: number; cols?: number };
+
+function CustomTable({ cols = 6, rows = 20 }) {
   return (
     <Table className="overflow-hidden">
       <TableHeader>
@@ -37,3 +40,18 @@ export function SkeletonTable({ cols = 5, rows = 20 }) {
     </Table>
   );
 }
+
+export const SkeletonTable = (props: SkeletonProps) => {
+  return (
+    <Card>
+      <CardHeader className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {[...Array(6)].map((_, index) => (
+          <Skeleton key={index} className="h-10 w-full rounded-md" />
+        ))}
+      </CardHeader>
+      <CardContent>
+        <CustomTable {...props} />
+      </CardContent>
+    </Card>
+  );
+};
