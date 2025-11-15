@@ -1,28 +1,25 @@
 import "../tailwind.css";
 import type { Meta, StoryObj } from "@storybook/react";
-import type { TypeWithDeepControls } from "storybook-addon-deep-controls";
 import AppsmithTable from "../widgets/AppsmithTable/AppsmithTable";
 import type {
-  TableModel,
   RowAction,
   Schema,
+  TableModel,
 } from "../widgets/AppsmithTable/types";
 import {
   PinDirection,
   ItemSize,
   ColumnType,
 } from "../widgets/AppsmithTable/constants";
-import * as LucideIcons from "lucide-react";
 import { fn } from "@storybook/test";
-
-// Typed row actions
+// Row actions
 const defaultRowActions: RowAction[] = [
   { title: "Korish", onClick: "onClick", icon: "Activity" },
   { title: "Qoshish", onClick: "onKomol", icon: "AlarmClockPlus" },
   { title: "Tolov", onClick: "onClick" },
 ];
 
-// Typed schema
+// Schema
 const defaultSchema: Schema = {
   userId: {
     type: ColumnType.NUMBER,
@@ -54,63 +51,34 @@ const defaultSchema: Schema = {
   },
 };
 
-// Default model
-const defaultModel: TableModel = {
+// Flattened model props (everything is root-level now)
+const defaultProps: TableModel = {
   fetcher: { url: "https://jsonplaceholder.typicode.com/posts" },
   schema: defaultSchema,
   rowActions: defaultRowActions,
   actionColumn: { enable: true, pin: PinDirection.right, size: ItemSize.sm },
-  indexRow: { enable: true },
+  indexRow: { enable: true, size: ItemSize.sm },
 };
 
-// Storybook meta with deep controls and enum selections
-const meta: TypeWithDeepControls<Meta<typeof AppsmithTable>> = {
+// Storybook meta
+const meta: Meta<typeof AppsmithTable> = {
   title: "Components/AppsmithTable",
   component: AppsmithTable,
   tags: ["autodocs"],
-  parameters: {
-    deepControls: { enabled: true },
-  },
+  parameters: { deepControls: { enabled: false } },
   argTypes: {
-    // model object editable as object
-    model: {
-      control: "object",
-      description: "Full table model with typed schema and row actions",
-    },
-    // Top-level enum controls
-    "model.actionColumn.pin": {
-      control: "select",
-      options: Object.values(PinDirection),
-    },
-    "model.actionColumn.size": {
-      control: "select",
-      options: Object.values(ItemSize),
-    },
-    // RowAction icons: only first 3 actions for simplicity
-    "model.rowActions.0.icon": {
-      control: "select",
-      options: Object.keys(LucideIcons),
-    },
-    "model.rowActions.1.icon": {
-      control: "select",
-      options: Object.keys(LucideIcons),
-    },
-    "model.rowActions.2.icon": {
-      control: "select",
-      options: Object.keys(LucideIcons),
-    },
     triggerEvent: { action: "triggerEvent" },
     updateModel: { action: "updateModel" },
   },
 };
 
 export default meta;
-type Story = TypeWithDeepControls<StoryObj<typeof AppsmithTable>>;
+type Story = StoryObj<typeof AppsmithTable>;
 
-// Full-typed story
+// Full story
 export const AllOptions: Story = {
   args: {
-    model: defaultModel,
+    ...defaultProps,
     triggerEvent: fn(),
     updateModel: fn(),
   },

@@ -26,7 +26,9 @@ export function ActionCell<TData>({
   triggerEvent,
 }: ActionCellProps<TData>) {
   const handleAction = (eventName: string) => {
-    triggerEvent(eventName, { row: row.original });
+    if (triggerEvent) {
+      triggerEvent(eventName, { row: row.original });
+    }
   };
 
   const onlyOne = rowActions.length === 1;

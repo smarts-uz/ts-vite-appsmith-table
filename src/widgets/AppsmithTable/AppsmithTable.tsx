@@ -20,18 +20,12 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { fetcherFN } from "./lib/fetcherFN";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { defaultTranslations } from "./lib/translations";
-import type { TableModel, TriggerEvent } from "./types";
+import type { TableModel } from "./types";
 import { HTTP_METHODS, PinDirection } from "./constants";
 import { validateTableModel } from "./validator/validateTableModal";
 import { Table } from "@/components/ui/table";
 import { InfoCard } from "./components/info-card";
 import { SkeletonTable } from "./components/skeleton-table";
-
-interface TableProps {
-  model: TableModel;
-  updateModel?: (data: any) => void;
-  triggerEvent?: TriggerEvent;
-}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,20 +38,16 @@ const queryClient = new QueryClient({
 });
 
 function CustomTable({
-  model,
+  schema,
+  rowActions,
+  rowSelectionAction,
+  actionColumn,
+  indexRow,
+  translations,
+  fetcher,
   updateModel = () => {},
   triggerEvent = () => {},
-}: TableProps) {
-  const {
-    schema,
-    rowActions,
-    rowSelectionAction,
-    actionColumn,
-    indexRow,
-    translations,
-    fetcher,
-  } = model;
-
+}: TableModel) {
   const { url, method, headers, body, accessor } = fetcher;
 
   const { data = [], isLoading } = useQuery({
@@ -165,7 +155,7 @@ function CustomTable({
   }
 
   return (
-    <Card>
+    <Card className="max-h-[32rem] overflow-y-scroll">
       <CardHeader className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {table
           .getHeaderGroups()
@@ -187,8 +177,8 @@ function CustomTable({
   );
 }
 
-function AppsmithTable(props: TableProps) {
-  const validation = validateTableModel(props.model);
+function AppsmithTable(props: TableModel) {
+  const validation = validateTableModel(props);
 
   return (
     <QueryClientProvider client={queryClient}>

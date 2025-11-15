@@ -6,9 +6,9 @@ type ValidationResult =
   | { success: true }
   | { success: false; error: string | unknown };
 
-export function validateTableModel(model: TableModel): ValidationResult {
+export function validateTableModel(props: TableModel): ValidationResult {
   try {
-    TableModelSchema.parse(model);
+    TableModelSchema.parse(props);
     return { success: true };
   } catch (err) {
     console.error(err);

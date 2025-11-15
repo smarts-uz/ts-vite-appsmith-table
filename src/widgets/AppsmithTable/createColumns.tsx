@@ -2,18 +2,17 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { ActionCell } from "./components/action-cell";
 import { ItemSize, SIZE_MAP } from "./constants";
 import IndexCell from "./components/index-cell";
-import { TableModelSchema, type TriggerEvent } from "./types";
+import { TableModelSchema } from "./types";
 import type z from "zod";
 
 const CreateColumns = TableModelSchema.omit({
   fetcher: true,
   translations: true,
   rowSelectionAction: true,
+  updateModel: true,
 });
 
-type CreateColumnsProps = z.infer<typeof CreateColumns> & {
-  triggerEvent: TriggerEvent;
-};
+type CreateColumnsProps = z.infer<typeof CreateColumns>;
 
 export function createColumns<TData>({
   schema,

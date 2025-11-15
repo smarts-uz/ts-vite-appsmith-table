@@ -47,6 +47,18 @@ export const TableSchema = z.record(z.string(), ColumnItemSchema, {
   error: "Schema not provided",
 });
 
+export const TriggerEventSchema = z
+  .function({
+    input: [z.string(), z.object({ row: z.any() })],
+  })
+  .optional();
+
+export const UpdateModelSchema = z
+  .function({
+    input: [z.any()],
+  })
+  .optional();
+
 export const TableModelSchema = z.object({
   fetcher: FetcherSchema,
   schema: TableSchema,
@@ -55,6 +67,8 @@ export const TableModelSchema = z.object({
   rowSelectionAction: z.string().optional(),
   actionColumn: ActionColumnSchema.optional(),
   translations: z.record(z.string(), z.string()).optional(),
+  updateModel: UpdateModelSchema,
+  triggerEvent: TriggerEventSchema,
 });
 
 export type ColumnItem = z.infer<typeof ColumnItemSchema>;
@@ -65,4 +79,4 @@ export type RowAction = z.infer<typeof RowActionSchema>;
 export type Fetcher = z.infer<typeof FetcherSchema>;
 export type LucideIconName = keyof typeof LucideIcons;
 export type Schema = z.infer<typeof TableSchema>;
-export type TriggerEvent = (key: string, data: any) => void;
+export type TriggerEvent = z.infer<typeof TriggerEventSchema>;
