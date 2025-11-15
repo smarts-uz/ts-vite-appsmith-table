@@ -23,6 +23,7 @@ import { postsTableSchema } from "@/widgets/AppsmithTable/lib/mock.schema";
 import { defaultTranslations } from "./lib/translations";
 import type { TableModel } from "./types";
 import { HTTP_METHODS } from "./constants";
+import { validateTableModel } from "./validator/validateTableModal";
 
 interface TableProps {
   model: TableModel;
@@ -57,6 +58,8 @@ function Table({
   updateModel = () => {},
   triggerEvent = () => {},
 }: TableProps) {
+  const isValid = validateTableModel(model);
+
   const {
     schema,
     rowActions,
@@ -173,6 +176,13 @@ function Table({
     }
   }, [rowSelection, rowSelectionAction, table]);
 
+  if (!isValid) {
+    return (
+      <div className="p-4 text-red-600 border border-red-300 rounded-lg">
+        ⚠️ Table configuration is invalid. Check the errors above.
+      </div>
+    );
+  }
   if (isLoading) {
     return <>Loading...</>;
   }
@@ -207,12 +217,12 @@ function Table({
   );
 }
 
-function AppsmithTable(props: any) {
+function AppsmithTable(props: TableProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster />
       <ReactQueryDevtools initialIsOpen={false} />
-      <Table model={props.model} />
+      <Table {...props} />
     </QueryClientProvider>
   );
 }

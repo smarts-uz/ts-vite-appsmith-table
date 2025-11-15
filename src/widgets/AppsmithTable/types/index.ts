@@ -1,4 +1,5 @@
 import { ColumnType, ItemSize, PinDirection, HTTP_METHODS } from "../constants";
+import z from "zod";
 
 export type ColumnSchema = {
   type: ColumnType;
@@ -32,9 +33,7 @@ export type ColumnSchemaItem = {
   filter?: boolean;
   pin?: PinDirection | null;
   size?: ItemSize;
-  textAlign?: "left" | "center" | "right";
   title?: string;
-  dateFormat?: string;
   minOptions?: number[];
   maxOptions?: number[];
 };
@@ -55,12 +54,50 @@ export type ColumnParams<TData> = {
   actionColumn?: ActionColumn;
 };
 
-export type TableModel = {
-  fetcher: Fetcher;
-  schema: Record<string, ColumnSchemaItem>;
-  indexRow?: IndexRow;
-  rowActions?: RowAction[];
-  rowSelectionAction?: string;
-  actionColumn?: ActionColumn;
-  translations?: Record<string, string>;
-};
+const ColumnSchemaItemSchema = z.object({
+  type: z.enum(ColumnType),
+  options: z
+    .array(z.object({ value: z.string(), title: z.string() }))
+    .optional(),
+  sort: z.boolean().optional(),
+  filter: z.boolean().optional(),
+  pin: z.enum(PinDirection).nullable().optional(),
+  size: z.enum(ItemSize).optional(),
+  title: z.string().optional(),
+  minOptions: z.array(z.number()).optional(),
+  maxOptions: z.array(z.number()).optional(),
+});
+
+const FetcherSchema = z.object({
+  url: z.url({ error: "URL is not provided" }),
+  method: z.enum(HTTP_METHODS).optional().default(HTTP_METHODS.GET),
+  headers: z.record(z.string(), z.string()).optional(),
+  body: z.any().optional(),
+  accessor: z.string().optional(),
+});
+
+export const TableModelSchema = z.object({
+  fetcher: FetcherSchema,
+  schema: z.record(z.string(), ColumnSchemaItemSchema),
+  indexRow: z
+    .object({
+      enable: z.boolean(),
+      size: z.enum(ItemSize),
+      pin: z.enum(PinDirection).nullable(),
+    })
+    .optional(),
+  rowActions: z
+    .array(z.object({ title: z.string(), onClick: z.string() }))
+    .optional(),
+  rowSelectionAction: z.string().optional(),
+  actionColumn: z
+    .object({
+      enable: z.boolean(),
+      size: z.enum(ItemSize).default(ItemSize.md),
+      pin: z.enum(PinDirection).nullable(),
+    })
+    .optional(),
+  translations: z.record(z.string(), z.string()).optional(),
+});
+
+export type TableModel = z.infer<typeof TableModelSchema>;

@@ -10,7 +10,6 @@ import React from "react";
 export const mockModel = {
   fetcher: {
     url: "https://jsonplaceholder.typicode.com/posts",
-    method: "GET",
   },
   schema: postsTableSchema,
 };

@@ -23,7 +23,6 @@ export function createColumns<TData>({
       // @ts-expect-error: 'pin' is not part of ColumnDef, but used by the table implementation
       pin: indexRow.pin,
       cell: ({ row, table }) => <IndexCell row={row} table={table} />,
-      meta: { textAlign: "center" },
     });
   }
 
@@ -35,7 +34,6 @@ export function createColumns<TData>({
         sort,
         filter,
         size = ItemSize.md,
-        textAlign,
         title,
       } = colSchema;
       const headerText = title || colKey[0].toUpperCase() + colKey.slice(1);
@@ -54,7 +52,6 @@ export function createColumns<TData>({
           filterVariant: filter ? type : null,
           headerText,
           size,
-          textAlign,
         },
         cell: (info) => String(info.getValue() ?? ""),
       };
