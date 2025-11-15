@@ -10,7 +10,9 @@ const ColumnItemSchema = z.object({
   sort: z.boolean().optional(),
   filter: z.boolean().optional(),
   size: z.enum(ItemSize).optional(),
-  title: z.string().optional(),
+  title: z
+    .string({ error: "An incorrect schema title is provided" })
+    .optional(),
   className: z.string().optional(),
 });
 

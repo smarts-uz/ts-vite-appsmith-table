@@ -62,7 +62,7 @@ export const InfoCard: React.FC<InfoCardProps> = ({
           {title ?? variant.charAt(0).toUpperCase() + variant.slice(1)}
         </span>
       </CardHeader>
-      <CardContent className={`${styles.text}`}>{message}</CardContent>
+      <CardContent className={`whitespace-normal break-words ${styles.text}`}>{message}</CardContent>
     </Card>
   );
 };

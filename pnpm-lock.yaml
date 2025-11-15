@@ -177,6 +177,9 @@ importers:
       storybook:
         specifier: 10.0.7
         version: 10.0.7(@testing-library/dom@10.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@7.2.2(@types/node@24.10.0)(jiti@1.21.7)(lightningcss@1.30.2))
+      storybook-addon-deep-controls:
+        specifier: ^0.10.0
+        version: 0.10.0(storybook@10.0.7(@testing-library/dom@10.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@7.2.2(@types/node@24.10.0)(jiti@1.21.7)(lightningcss@1.30.2)))
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -2849,6 +2852,11 @@ packages:
 
   std-env@3.10.0:
     resolution: {integrity: sha512-5GS12FdOZNliM5mAOxFRg7Ir0pWz8MdpYm6AY6VPkGpbA7ZzmbzNcBJQ0GPvvyWgcY7QAhCgf9Uy89I03faLkg==}
+
+  storybook-addon-deep-controls@0.10.0:
+    resolution: {integrity: sha512-tVWoibwNVkBaGN9nl8h1Qz4t562SVpudC/JcEL436KjKWUeft+b0HLw9tvZVcRyuZtNvSvuOQbTNyTdVi9lbKA==}
+    peerDependencies:
+      storybook: '>= 7.0.0 < 8.5.0 || >= 9.0.0 < 11.0.0'
 
   storybook@10.0.7:
     resolution: {integrity: sha512-7smAu0o+kdm378Q2uIddk32pn0UdIbrtTVU+rXRVtTVTCrK/P2cCui2y4JH+Bl3NgEq1bbBQpCAF/HKrDjk2Qw==}
@@ -5846,6 +5854,10 @@ snapshots:
   stackback@0.0.2: {}
 
   std-env@3.10.0: {}
+
+  storybook-addon-deep-controls@0.10.0(storybook@10.0.7(@testing-library/dom@10.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@7.2.2(@types/node@24.10.0)(jiti@1.21.7)(lightningcss@1.30.2))):
+    dependencies:
+      storybook: 10.0.7(@testing-library/dom@10.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@7.2.2(@types/node@24.10.0)(jiti@1.21.7)(lightningcss@1.30.2))
 
   storybook@10.0.7(@testing-library/dom@10.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@7.2.2(@types/node@24.10.0)(jiti@1.21.7)(lightningcss@1.30.2)):
     dependencies:
