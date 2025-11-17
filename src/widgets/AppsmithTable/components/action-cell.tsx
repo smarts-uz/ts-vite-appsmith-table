@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import type { RowAction, TriggerEvent } from "../types";
-import type { Row, Table } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,12 +9,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import type { ItemSize } from "../constants";
 
 type ActionCellProps<TData> = {
   row: Row<TData>;
-  table?: Table<TData>;
   rowActions: RowAction[];
   triggerEvent: TriggerEvent;
+  size?: ItemSize
 };
 
 // Fallback icon

@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { ActionCell } from "./components/action-cell";
-import { ItemSize, SIZE_MAP } from "./constants";
+import { ItemSize } from "./constants";
 import IndexCell from "./components/index-cell";
 import { TableModelSchema } from "./types";
 import type z from "zod";
@@ -25,8 +25,9 @@ export function createColumns<TData>({
   if (indexRow?.enable) {
     indexColumns.push({
       id: "#",
-      size: SIZE_MAP[indexRow.size || ItemSize.xs],
-      cell: ({ row, table }) => <IndexCell row={row} table={table} />,
+      cell: ({ row }) => (
+        <IndexCell size={indexRow.size || ItemSize.xs} row={row} />
+      ),
     });
   }
 
@@ -42,7 +43,6 @@ export function createColumns<TData>({
               <span onClick={() => column.toggleSorting()}>{headerText}</span>
             )
           : headerText,
-        size: SIZE_MAP[size || ItemSize.md],
         enableSorting: sort,
         enableColumnFilter: filter,
         meta: {
@@ -62,9 +62,9 @@ export function createColumns<TData>({
     actionColumns.push({
       id: "actions",
       header: "",
-      size: SIZE_MAP[actionColumn?.size || ItemSize.md],
       cell: ({ row }) => (
         <ActionCell
+          size={actionColumn?.size || ItemSize.sm}
           triggerEvent={triggerEvent}
           row={row}
           rowActions={rowActions}

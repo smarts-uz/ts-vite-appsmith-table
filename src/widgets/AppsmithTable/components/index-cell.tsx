@@ -1,20 +1,13 @@
-import type { Row, Table } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
+import type { ItemSize } from "../constants";
 
 type IndexCellProps<TData> = {
   row: Row<TData>;
-  table: Table<TData>;
-  enablePagination?: boolean;
+  size?: ItemSize
 };
 
-const IndexCell = <TData,>({
-  row,
-  table,
-  enablePagination = true,
-}: IndexCellProps<TData>) => {
-  const { pageIndex, pageSize } = table.getState().pagination;
-  const index = enablePagination
-    ? pageIndex * pageSize + row.index + 1
-    : row.index + 1;
+const IndexCell = <TData,>({ row }: IndexCellProps<TData>) => {
+  const index = row.index + 1;
 
   return <div className="text-center">{index}</div>;
 };
