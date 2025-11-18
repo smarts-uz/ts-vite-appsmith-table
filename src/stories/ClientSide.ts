@@ -3,9 +3,9 @@ import type {
   RowAction,
   Schema,
   TableModel,
-} from "../widgets/AppsmithTable/types";
-import { ItemSize, ColumnType } from "../widgets/AppsmithTable/constants";
-import { PinDirection } from "../widgets/AppsmithTable/constants";
+} from "../widgets/InfiniteTable/types";
+import { ItemSize, ColumnType } from "../widgets/InfiniteTable/constants";
+import { PinDirection } from "../widgets/InfiniteTable/constants";
 
 const postsSchema: Schema = {
   id: {

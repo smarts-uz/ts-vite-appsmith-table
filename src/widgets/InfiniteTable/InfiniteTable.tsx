@@ -233,7 +233,7 @@ function CustomTable({
   );
 }
 
-function AppsmithTable(props: TableModel) {
+function InfiniteTable(props: TableModel) {
   const validation = validateTableModel(props);
 
   return (
@@ -255,4 +255,4 @@ function AppsmithTable(props: TableModel) {
   );
 }
 
-export default AppsmithTable;
+export default InfiniteTable;

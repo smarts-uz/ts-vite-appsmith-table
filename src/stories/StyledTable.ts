@@ -3,13 +3,13 @@ import type {
   RowAction,
   Schema,
   TableModel,
-} from "../widgets/AppsmithTable/types";
+} from "../widgets/InfiniteTable/types";
 import {
   ItemSize,
   ColumnType,
   PinDirection,
-} from "../widgets/AppsmithTable/constants";
-import type { AppsmithTableStyles } from "@/widgets/AppsmithTable/types/style.types";
+} from "../widgets/InfiniteTable/constants";
+import type { AppsmithTableStyles } from "@/widgets/InfiniteTable/types/style.types";
 
 export const postsSchema: Schema = {
   userId: {

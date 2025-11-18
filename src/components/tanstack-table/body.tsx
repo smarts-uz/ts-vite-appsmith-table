@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { TableBody, TableRow, TableCell } from "../ui/table";
 import type { Table, RowData } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
-import type { TableBodyStyles } from "@/widgets/AppsmithTable/types/style.types";
-import { ItemSize } from "@/widgets/AppsmithTable/constants";
-import type { AppsmithColumnMeta } from "@/widgets/AppsmithTable/types";
+import type { TableBodyStyles } from "@/widgets/InfiniteTable/types/style.types";
+import { ItemSize } from "@/widgets/InfiniteTable/constants";
+import type { AppsmithColumnMeta } from "@/widgets/InfiniteTable/types";
 
 type BodyProps<TData extends RowData> = {
   table: Table<TData>;

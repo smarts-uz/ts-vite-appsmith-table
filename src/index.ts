@@ -1,4 +1,4 @@
-import './tailwind.css'
-import AppsmithTable from "./widgets/AppsmithTable/AppsmithTable";
+import "./tailwind.css";
+import InfiniteTable from "./widgets/InfiniteTable/InfiniteTable";
 
-export { AppsmithTable };
+export { InfiniteTable };
