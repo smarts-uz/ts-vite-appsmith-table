@@ -3,6 +3,8 @@ import { ActionCell } from "./components/action-cell";
 import { ItemSize } from "./constants";
 import { TableModelSchema, type AppsmithColumnMeta } from "./types";
 import type z from "zod";
+import TableHeader from "./components/table-header";
+import { TableCell } from "./components/table-cell";
 
 const CreateColumns = TableModelSchema.omit({
   fetcher: true,
@@ -24,6 +26,7 @@ export function createColumns<TData>({
   if (indexRow?.enable) {
     indexColumns.push({
       id: "#",
+      header: "#",
       meta: {
         size: ItemSize.xs,
       },
@@ -38,11 +41,9 @@ export function createColumns<TData>({
 
       const colDef: ColumnDef<TData> = {
         accessorKey: colKey,
-        header: sort
-          ? ({ column }) => (
-              <span onClick={() => column.toggleSorting()}>{headerText}</span>
-            )
-          : headerText,
+        header: ({ column }) => (
+          <TableHeader column={column} title={headerText} />
+        ),
         enableSorting: sort,
         enableColumnFilter: filter,
         meta: {
@@ -50,7 +51,7 @@ export function createColumns<TData>({
           headerText,
           size,
         } as AppsmithColumnMeta,
-        cell: (info) => String(info.getValue() ?? ""),
+        cell: (info) => <TableCell value={String(info.getValue() ?? "")} />,
       };
 
       return colDef;

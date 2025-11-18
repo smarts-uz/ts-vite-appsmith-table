@@ -124,6 +124,8 @@ function CustomTable({
       rowPinning,
     },
     enableRowSelection: true,
+    manualSorting: true,
+    manualFiltering: true,
     enableMultiRowSelection: false,
   });
 

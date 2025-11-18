@@ -12,7 +12,6 @@
 [X] 12. Add row index to table
 [X] 13. Fix Header Text make it slightly smaller and bolder and make it break words
 [X] 14. Add type for phone number with search filter
-[ ] 15. Make super custom orders table
 
 # Bug
 [X] Bug with infinite load and filters.
