@@ -39,7 +39,7 @@ function TanstackTableBody<TData extends RowData>({
               <TableCell
                 key={cell.id}
                 className={cn(
-                  "whitespace-normal break-words border text-center lg:text-start ",
+                  "whitespace-normal break-words border text-center lg:text-start max-w-96",
                   sizeClass,
                   styles?.cell
                 )}

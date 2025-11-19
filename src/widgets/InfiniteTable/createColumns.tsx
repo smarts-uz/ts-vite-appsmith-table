@@ -50,7 +50,7 @@ export function createColumns<TData>({
           headerText,
           size,
         } as AppsmithColumnMeta,
-        cell: (info) => <TableCell value={String(info.getValue() ?? "")} />,
+        cell: (info) => <TableCell value={info.getValue()} />,
       };
 
       return colDef;

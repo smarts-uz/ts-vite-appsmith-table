@@ -6,7 +6,7 @@ import { StyledTableProps } from "./StyledTable";
 
 // Storybook meta
 const meta: Meta<typeof InfiniteTable> = {
-  title: "Client InfiniteTable",
+  title: "Infinite Table",
   component: InfiniteTable,
   tags: ["autodocs"],
   parameters: { deepControls: { enabled: false } },

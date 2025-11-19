@@ -12,39 +12,39 @@ import {
 import type { AppsmithTableStyles } from "@/widgets/InfiniteTable/types/style.types";
 
 export const postsSchema: Schema = {
-  userId: {
-    type: ColumnType.NUMBER,
-    title: "User ID",
-    sort: true,
-    filter: true,
-    size: ItemSize.md,
-  },
   id: {
     type: ColumnType.TEXT,
-    title: "Post ID",
+    title: "ID",
     sort: true,
     filter: true,
   },
-  title: {
+  name: {
     type: ColumnType.TEXT,
-    title: "Title",
+    title: "Name",
     sort: true,
     filter: true,
     size: ItemSize.md,
   },
-  body: {
+  email: {
+    type: ColumnType.NUMBER,
+    title: "Email",
+    sort: true,
+    filter: true,
+    size: ItemSize.md,
+  },
+  phone: {
     type: ColumnType.TEXT,
-    title: "Body",
+    title: "Phone",
     sort: true,
     filter: true,
     size: ItemSize.lg,
   },
-  views: {
-    type: ColumnType.NUMBER,
-    title: "Views",
+  agent: {
+    type: ColumnType.TEXT,
+    title: "Agent",
     sort: true,
     filter: true,
-    size: ItemSize.md,
+    size: ItemSize.lg,
   },
 };
 
@@ -90,7 +90,13 @@ export const tableStyles: AppsmithTableStyles = {
 };
 
 export const StyledTableProps: TableModel = {
-  fetcher: { url: "https://dummyjson.com/posts", accessor: "posts" },
+  fetcher: {
+    url: "https://ssl.smarts.uz/user",
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTc1ODM0NTM4N30.Elx91NM_XS8YulaA6S0PzRJR2nA3aZXp5D6-YrEvtZw",
+    },
+  },
   schema: postsSchema,
   rowActions: postsRowActions,
   actionColumn: { enable: true, pin: PinDirection.right, size: ItemSize.sm },

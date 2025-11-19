@@ -188,7 +188,7 @@ function CustomTable({
   return (
     <Card
       className={cn(
-        "max-h-svh lg:max-h-[40rem] overflow-y-scroll gap-4 lg:gap-6",
+        "max-h-svh lg:max-h-[40rem] xl:max-h-[48rem] overflow-y-scroll gap-4 lg:gap-6",
         styles?.card?.container
       )}
       style={{ ...styles?.variables }}
@@ -223,7 +223,7 @@ function CustomTable({
           <button
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
-            className="px-4 py-2 bg-blue-600 max-w-64 block justify-center mx-auto text-white rounded-lg shadow-md hover:bg-blue-700 disabled:opacity-50"
+            className="px-4 py-2 mt-2 bg-blue-600 max-w-64 block justify-center mx-auto text-white rounded-lg shadow-md hover:bg-blue-700 disabled:opacity-50"
           >
             {isFetchingNextPage ? "Loading more..." : "Load More"}
           </button>
