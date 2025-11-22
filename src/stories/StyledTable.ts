@@ -3,47 +3,34 @@ import type {
   RowAction,
   Schema,
   TableModel,
-} from "../widgets/InfiniteTable/types";
-import {
-  ItemSize,
-  ColumnType,
-  PinDirection,
-} from "../widgets/InfiniteTable/constants";
-import type { AppsmithTableStyles } from "@/widgets/InfiniteTable/types/style.types";
+} from "../widgets/ClientTable/types";
+import { ItemSize, PinDirection } from "../widgets/ClientTable/constants";
+import type { AppsmithTableStyles } from "@/widgets/ClientTable/types/index";
+import data from "./data-1.json";
 
 export const postsSchema: Schema = {
   id: {
-    type: ColumnType.TEXT,
     title: "ID",
     sort: true,
-    filter: true,
   },
   name: {
-    type: ColumnType.TEXT,
     title: "Name",
     sort: true,
-    filter: true,
     size: ItemSize.md,
   },
   email: {
-    type: ColumnType.NUMBER,
     title: "Email",
     sort: true,
-    filter: true,
     size: ItemSize.md,
   },
   phone: {
-    type: ColumnType.TEXT,
     title: "Phone",
     sort: true,
-    filter: true,
     size: ItemSize.lg,
   },
   agent: {
-    type: ColumnType.TEXT,
     title: "Agent",
     sort: true,
-    filter: true,
     size: ItemSize.lg,
   },
 };
@@ -68,11 +55,7 @@ export const tableStyles: AppsmithTableStyles = {
     cell: "border-b border-[var(--border)]",
   },
 
-  card: {
-    container: "bg-[var(--card)] shadow-md rounded-lg px-1",
-    header: "text-lg font-bold text-[var(--foreground)]",
-    content: "text-[var(--foreground)]",
-  },
+  container: "bg-[var(--card)] shadow-md rounded-lg px-1",
 
   table: "",
 
@@ -90,13 +73,8 @@ export const tableStyles: AppsmithTableStyles = {
 };
 
 export const StyledTableProps: TableModel = {
-  fetcher: {
-    url: "https://ssl.smarts.uz/user",
-    headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTc1ODM0NTM4N30.Elx91NM_XS8YulaA6S0PzRJR2nA3aZXp5D6-YrEvtZw",
-    },
-  },
+  data,
+  limit: 15,
   schema: postsSchema,
   rowActions: postsRowActions,
   actionColumn: { enable: true, pin: PinDirection.right, size: ItemSize.sm },

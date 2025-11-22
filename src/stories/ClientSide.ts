@@ -3,34 +3,35 @@ import type {
   RowAction,
   Schema,
   TableModel,
-} from "../widgets/InfiniteTable/types";
-import { ItemSize, ColumnType } from "../widgets/InfiniteTable/constants";
-import { PinDirection } from "../widgets/InfiniteTable/constants";
+} from "../widgets/ClientTable/types";
+import { ItemSize } from "../widgets/ClientTable/constants";
+import { PinDirection } from "../widgets/ClientTable/constants";
+import data from "./data-1.json";
 
 const postsSchema: Schema = {
   id: {
-    type: ColumnType.TEXT,
     title: "ID",
     sort: true,
-    filter: true,
   },
-  age: {
-    type: ColumnType.NUMBER,
-    title: "Age",
-    sort: true,
-    filter: true,
-  },
-  username: {
-    type: ColumnType.TEXT,
+  name: {
     title: "Name",
     sort: true,
-    filter: true,
+    size: ItemSize.md,
   },
-  university: {
-    type: ColumnType.TEXT,
-    title: "University",
-    sort: false,
-    filter: true,
+  email: {
+    title: "Email",
+    sort: true,
+    size: ItemSize.md,
+  },
+  phone: {
+    title: "Phone",
+    sort: true,
+    size: ItemSize.lg,
+  },
+  agent: {
+    title: "Agent",
+    sort: true,
+    size: ItemSize.lg,
   },
 };
 
@@ -41,11 +42,7 @@ const postsRowActions: RowAction[] = [
 ];
 
 export const ClientSideProps: TableModel = {
-  fetcher: {
-    url: "https://dummyjson.com/users",
-    accessor: "users",
-    paginationKeys: { offset: "skip", limit: "limit" },
-  },
+  data,
   schema: postsSchema,
   rowActions: postsRowActions,
   actionColumn: { enable: true, pin: PinDirection.right, size: ItemSize.sm },

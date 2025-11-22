@@ -7,10 +7,12 @@ import TableHeader from "./components/table-header";
 import { TableCell } from "./components/table-cell";
 
 const CreateColumns = TableModelSchema.omit({
-  fetcher: true,
   translations: true,
   rowSelectionAction: true,
   updateModel: true,
+  data: true,
+  limit: true,
+  styles: true,
 });
 
 type CreateColumnsProps = z.infer<typeof CreateColumns>;
@@ -35,7 +37,7 @@ export function createColumns<TData>({
 
   const autoCols = Object.entries(schema)
     .map(([colKey, colSchema]) => {
-      const { type, sort, filter, size = ItemSize.md, title } = colSchema;
+      const { sort, size = ItemSize.md, title } = colSchema;
       const headerText = title || colKey[0].toUpperCase() + colKey.slice(1);
 
       const colDef: ColumnDef<TData> = {
@@ -44,9 +46,7 @@ export function createColumns<TData>({
           <TableHeader column={column} title={headerText} />
         ),
         enableSorting: sort,
-        enableColumnFilter: filter,
         meta: {
-          filterVariant: filter ? type : null,
           headerText,
           size,
         } as AppsmithColumnMeta,

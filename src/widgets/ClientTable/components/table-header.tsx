@@ -1,6 +1,7 @@
 import { type Column } from "@tanstack/react-table";
 import { SortingIcon } from "./sorting-icon";
 import { ChevronsUpDown } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 type TableHeaderProps<TData> = {
   column: Column<TData, any>;
@@ -11,8 +12,9 @@ function TableHeader<TData>({ column, title }: TableHeaderProps<TData>) {
   const isSorted = column.getIsSorted(); // "asc" | "desc" | false
 
   return (
-    <div
-      className="cursor-pointer select-none flex justify-between items-center w-full"
+    <Badge
+      variant="outline"
+      className="cursor-pointer rounded lg:px-2 lg:py-1 border-none hover:bg-primary/10 text-base capitalize select-none flex items-center"
       onClick={() => {
         // toggle between "asc", "desc", undefined
         // let nextOrder: SORT_ORDER | undefined;
@@ -29,7 +31,7 @@ function TableHeader<TData>({ column, title }: TableHeaderProps<TData>) {
       ) : column.getCanSort() ? (
         <ChevronsUpDown className="hidden min-w-4 size-4 sm:inline-block" />
       ) : null}
-    </div>
+    </Badge>
   );
 }
 

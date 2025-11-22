@@ -1,13 +1,13 @@
 import "../tailwind.css";
 import type { Meta, StoryObj } from "@storybook/react";
-import InfiniteTable from "../widgets/InfiniteTable/InfiniteTable";
+import ClientTable from "../widgets/ClientTable/ClientTable";
 import { ClientSideProps } from "./ClientSide";
 import { StyledTableProps } from "./StyledTable";
 
 // Storybook meta
-const meta: Meta<typeof InfiniteTable> = {
+const meta: Meta<typeof ClientTable> = {
   title: "Infinite Table",
-  component: InfiniteTable,
+  component: ClientTable,
   tags: ["autodocs"],
   parameters: { deepControls: { enabled: false } },
   argTypes: {
@@ -17,14 +17,14 @@ const meta: Meta<typeof InfiniteTable> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof InfiniteTable>;
+type Story = StoryObj<typeof ClientTable>;
 
 // Full story
 export const ClientSide: Story = {
   args: {
     ...ClientSideProps,
   },
-  render: (args) => <InfiniteTable {...args} />,
+  render: (args) => <ClientTable {...args} />,
 };
 
 // Full story
@@ -32,5 +32,5 @@ export const ColoredTable: Story = {
   args: {
     ...StyledTableProps,
   },
-  render: (args) => <InfiniteTable {...args} />,
+  render: (args) => <ClientTable {...args} />,
 };

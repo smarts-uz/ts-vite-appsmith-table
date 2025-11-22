@@ -1,4 +1,4 @@
 import "./tailwind.css";
-import InfiniteTable from "./widgets/InfiniteTable/InfiniteTable";
+import ClientTable from "./widgets/ClientTable/ClientTable";
 
-export { InfiniteTable };
+export { ClientTable };

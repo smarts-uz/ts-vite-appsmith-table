@@ -2,7 +2,7 @@ import { flexRender } from "@tanstack/react-table";
 import type { Table } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 import { TableHeader, TableHead, TableRow } from "@/components/ui/table";
-import type { TableHeadStyles } from "@/widgets/InfiniteTable/types/style.types";
+import type { TableHeadStyles } from "@/widgets/ClientTable/types/index";
 
 interface HeadProps<TData> {
   table: Table<TData>;
