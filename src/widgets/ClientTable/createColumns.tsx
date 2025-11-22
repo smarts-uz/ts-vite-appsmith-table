@@ -13,6 +13,8 @@ const CreateColumns = TableModelSchema.omit({
   data: true,
   limit: true,
   styles: true,
+  page: true,
+  setPage: true,
 });
 
 type CreateColumnsProps = z.infer<typeof CreateColumns>;

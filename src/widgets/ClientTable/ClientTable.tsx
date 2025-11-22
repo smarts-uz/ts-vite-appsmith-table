@@ -15,12 +15,13 @@ import { validateTableModel } from "./validator/validateTableModal";
 import { Table } from "@/components/ui/table";
 import { InfoCard } from "./components/info-card";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PER_PAGE } from "./constants";
 
 function ClientTable(props: TableModel) {
   const {
+    page,
+    setPage,
     schema,
     rowActions,
     rowSelectionAction,
@@ -34,7 +35,6 @@ function ClientTable(props: TableModel) {
     triggerEvent = () => {},
   } = props;
   const validation = validateTableModel(props);
-  const [page, setPage] = useState(0);
   const [rowSelection, setRowSelection] = React.useState({});
   const [rowPinning, setRowPinning] = React.useState({});
 
@@ -112,7 +112,7 @@ function ClientTable(props: TableModel) {
   }, [rowSelection, rowSelectionAction, table]);
 
   const handleClick = () => {
-    setPage((prev) => prev + 1);
+    setPage(page + 1);
     triggerEvent("onLoadMore", { page, limit });
   };
 

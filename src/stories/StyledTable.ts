@@ -74,6 +74,8 @@ export const tableStyles: AppsmithTableStyles = {
 
 export const StyledTableProps: TableModel = {
   data,
+  page: 0,
+  setPage: () => {},
   limit: 15,
   schema: postsSchema,
   rowActions: postsRowActions,

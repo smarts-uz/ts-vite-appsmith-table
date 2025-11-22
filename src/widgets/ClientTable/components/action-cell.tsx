@@ -32,7 +32,7 @@ export function ActionCell<TData>({
     }
   };
 
-  const onlyOne = rowActions.length === 1;
+  const onlyOne = rowActions?.length === 1;
 
   const renderIcon = (iconName?: keyof typeof LucideIcons) => {
     const Icon =
