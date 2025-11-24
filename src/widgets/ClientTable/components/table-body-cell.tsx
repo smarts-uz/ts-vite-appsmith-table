@@ -1,8 +1,8 @@
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface TableCellHoverProps {
   value: unknown;
@@ -16,15 +16,20 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
     return <></>;
   }
 
+  if (displayValue?.length < 30) {
+    return <>{displayValue}</>;
+  }
+
   return (
-    <HoverCard>
-      <HoverCardTrigger className="line-clamp-1 text-black">
+    <Tooltip>
+      <TooltipTrigger className="line-clamp-1 max-w-40 sm:max-w-64 lg:max-w-full text-black">
         {displayValue}
-      </HoverCardTrigger>
-      <HoverCardContent className="lg:w-80 break-words">
+      </TooltipTrigger>
+      <TooltipContent className="max-w-64 lg:max-w-80 break-words">
         {displayValue}
-      </HoverCardContent>
-    </HoverCard>
+      </TooltipContent>
+    </Tooltip>
   );
 };
+
 export default TableBodyCell;
