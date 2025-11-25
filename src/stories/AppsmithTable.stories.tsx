@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj<typeof ClientTable>;
 
 // Full story
-export const ClientSide: Story = {
+export const Default: Story = {
   args: {
     ...ClientSideProps,
   },

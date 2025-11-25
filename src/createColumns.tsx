@@ -1,10 +1,10 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import { ActionCell } from "./components/action-cell";
+import { ActionCell } from "./components/tanstack-table/action-cell";
 import { ItemSize } from "./constants";
 import { TableModelSchema, type AppsmithColumnMeta } from "./types";
 import type z from "zod";
-import TableHeaderCell from "./components/table-header-cell";
-import TableBodyCell from "./components/table-body-cell";
+import TableHeaderCell from "./components/tanstack-table/header-cell";
+import TableBodyCell from "./components/tanstack-table/body-cell";
 
 const CreateColumns = TableModelSchema.omit({
   translations: true,
@@ -69,7 +69,7 @@ export function createColumns<TData>({
       },
       cell: ({ row }) => (
         <ActionCell
-          size={ItemSize.xs}
+          type={actionColumn.type}
           triggerEvent={triggerEvent}
           row={row}
           rowActions={rowActions}

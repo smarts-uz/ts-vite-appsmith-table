@@ -1,9 +1,9 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useRef, useState, useEffect } from "react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface TableCellHoverProps {
   value: unknown;
@@ -36,12 +36,12 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
   );
 
   return isOverflowing ? (
-    <Tooltip>
-      <TooltipTrigger asChild>{content}</TooltipTrigger>
-      <TooltipContent className="max-w-64 lg:max-w-80 break-words">
+    <Popover>
+      <PopoverTrigger title={displayValue}>{content}</PopoverTrigger>
+      <PopoverContent className="w-64 lg:w-80 break-words">
         {displayValue}
-      </TooltipContent>
-    </Tooltip>
+      </PopoverContent>
+    </Popover>
   ) : (
     content
   );

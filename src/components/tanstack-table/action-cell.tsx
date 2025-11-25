@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import type { RowAction, TriggerEvent } from "../types";
+import { Button, type ButtonVariant } from "@/components/ui/button";
+import type { RowAction, TriggerEvent } from "../../types";
 import type { Row } from "@tanstack/react-table";
 import {
   DropdownMenu,
@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import type { ItemSize } from "../constants";
 
 type ActionCellProps<TData> = {
   row: Row<TData>;
   rowActions: RowAction[];
   triggerEvent: TriggerEvent;
-  size?: ItemSize;
+  type?: ButtonVariant;
 };
 
 // Fallback icon
@@ -24,6 +23,7 @@ const ICON_FALLBACK = LucideIcons.Info;
 export function ActionCell<TData>({
   row,
   rowActions,
+  type,
   triggerEvent,
 }: ActionCellProps<TData>) {
   const handleAction = (eventName: string) => {
@@ -46,8 +46,8 @@ export function ActionCell<TData>({
     const action = rowActions[0];
     return (
       <Button
-        variant="ghost"
-        size="sm"
+        variant={type || "default"}
+        size="icon"
         className="w-full min-w-8 h-full p-2 flex items-center gap-2"
         onClick={() => handleAction(action.onClick)}
       >
@@ -59,8 +59,13 @@ export function ActionCell<TData>({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="min-w-8 mx-auto">
-        <Button variant="ghost" asChild size="sm" className="w-full h-full p-2">
-          <LucideIcons.MoreHorizontal className="w-4 h-4" />
+        <Button
+          asChild
+          size="icon"
+          variant={type || "default"}
+          className="w-full h-full p-2"
+        >
+          <LucideIcons.MoreHorizontal />
         </Button>
       </DropdownMenuTrigger>
 

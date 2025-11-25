@@ -47,7 +47,7 @@ export const StyledTableProps: TableModel = {
   max_count: 100,
   schema: mockSchema,
   rowActions: postsRowActions,
-  actionColumn: { enable: true },
+  actionColumn: { enable: true, type: "destructive" },
   indexColumn: { enable: true, pin: PinDirection.left },
   styles: tableStyles,
 };

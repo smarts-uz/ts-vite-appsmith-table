@@ -20,6 +20,9 @@ export const IndexColumnSchema = z.object({
 export const ActionColumnSchema = z.object({
   enable: z.boolean(),
   pin: z.enum(PinDirection).default(PinDirection.right).optional(),
+  type: z
+    .enum(["default", "destructive", "outline", "secondary", "ghost", "link"])
+    .optional(),
 });
 
 export type LucideIconName = keyof typeof LucideIcons;
@@ -112,3 +115,4 @@ export type TableHeadStyles = z.infer<typeof TableHead>;
 export type TableBodyStyles = z.infer<typeof TableBody>;
 export type AppsmithTableStyles = z.infer<typeof AppsmithTableStyles>;
 export type TriggerEvent = z.infer<typeof TriggerEventSchema>;
+export type UpdateModel = z.infer<typeof UpdateModelSchema>;

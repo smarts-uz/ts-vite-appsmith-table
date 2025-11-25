@@ -84,6 +84,7 @@ function ClientTable(props: TableModel) {
     },
     enableRowSelection: true,
     manualSorting: true,
+    enableMultiRowSelection: false,
   });
 
   const handleLoadMore = (
@@ -102,24 +103,10 @@ function ClientTable(props: TableModel) {
     triggerEvent("onLoadMore", { page: next, limit });
   };
 
-  React.useEffect(() => {
-    const selectedRowId = Object.keys(rowSelection)[0];
-
-    if (!selectedRowId) {
-      updateModel({ selectedRow: {} });
-      return;
-    }
-
-    const selectedRow = table.getRow(selectedRowId);
-    if (selectedRow) {
-      updateModel({ selectedRow: selectedRow.original });
-      if (rowSelectionAction) {
-        triggerEvent(rowSelectionAction, {
-          row: selectedRow.original,
-        });
-      }
-    }
-  }, [rowSelection, rowSelectionAction, table]);
+  // React.useEffect(() => {
+  //   const selectedRow = table.getSelectedRowModel().flatRows[0]?.original;
+  //   updateModel({ selectedRow });
+  // }, [rowSelection, rowSelectionAction, table]);
 
   React.useEffect(() => {
     if (page * limit >= max_count) {
@@ -165,7 +152,13 @@ function ClientTable(props: TableModel) {
         )}
       >
         <TanstackTableHead styles={styles?.head} table={table} />
-        <TanstackTableBody styles={styles?.body} table={table} />
+        <TanstackTableBody
+          rowSelectionAction={rowSelectionAction}
+          updateModel={updateModel}
+          triggerEvent={triggerEvent}
+          styles={styles?.body}
+          table={table}
+        />
       </Table>
       {hasMore && (
         <InView

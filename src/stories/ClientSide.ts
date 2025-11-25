@@ -15,7 +15,7 @@ export const ClientSideProps: TableModel = {
   max_count: 400,
   schema: mockSchema,
   rowActions: postsRowActions,
-  actionColumn: { enable: true, pin: PinDirection.right },
+  actionColumn: { enable: true, pin: PinDirection.right, type: "outline" },
   indexColumn: { enable: true },
   triggerEvent: (event: string, data: any) => {
     if (event === "onLoadMore") {
