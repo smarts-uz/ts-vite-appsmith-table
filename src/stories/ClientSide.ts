@@ -28,10 +28,13 @@ const postsSchema: Schema = {
     sort: true,
     size: ItemSize.lg,
   },
-  agent: {
-    title: "Agent",
+  orders: {
+    title: "Orders",
     sort: true,
     size: ItemSize.lg,
+  },
+  description: {
+    title: "Description",
   },
 };
 
@@ -47,13 +50,14 @@ export const generateData = (count: number) => {
     name: faker.person.fullName(),
     email: faker.internet.email(),
     phone: faker.phone.number(),
-    agent: faker.internet.userAgent(),
+    orders: faker.number.int(),
+    description: faker.lorem.sentence(),
   }));
 };
 
 export const ClientSideProps: TableModel = {
-  data: generateData(10),
-  limit: 10,
+  tableData: generateData(20),
+  limit: 20,
   max_count: 400,
   schema: postsSchema,
   rowActions: postsRowActions,
@@ -62,6 +66,7 @@ export const ClientSideProps: TableModel = {
   triggerEvent: (event: string, data: any) => {
     if (event === "onLoadMore") {
       console.log(data);
+      console.log("triggerEvent");
     }
   },
 };

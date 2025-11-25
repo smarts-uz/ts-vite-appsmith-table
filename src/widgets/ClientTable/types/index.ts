@@ -77,8 +77,14 @@ export const UpdateModelSchema = z
   })
   .optional();
 
+export const OnModelChangeSchema = z
+  .function({
+    input: [z.any()],
+  })
+  .optional();
+
 export const TableModelSchema = z.object({
-  data: z.array(z.any()).default([]),
+  tableData: z.array(z.any()).default([]),
   limit: z.number().default(PER_PAGE).optional(),
   max_count: z.number(),
   schema: TableSchema,
@@ -90,6 +96,7 @@ export const TableModelSchema = z.object({
   styles: AppsmithTableStyles,
   triggerEvent: TriggerEventSchema,
   updateModel: UpdateModelSchema,
+  onModelChange: OnModelChangeSchema,
 });
 
 export interface AppsmithColumnMeta {

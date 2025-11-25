@@ -14,7 +14,7 @@ function TableHeader<TData>({ column, title }: TableHeaderProps<TData>) {
   return (
     <Badge
       variant="outline"
-      className="cursor-pointer rounded lg:px-2 lg:py-1 border-none hover:bg-primary/10 text-base capitalize select-none flex items-center"
+      className="cursor-pointer rounded lg:px-2 lg:py-1 border-none hover:bg-primary/10 text-xs md:text-sm lg:text-base font-semibold capitalize select-none flex items-center"
       onClick={() => {
         // toggle between "asc", "desc", undefined
         // let nextOrder: SORT_ORDER | undefined;

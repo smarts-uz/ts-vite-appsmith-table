@@ -22,7 +22,7 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger className="line-clamp-1 max-w-40 sm:max-w-64 lg:max-w-full text-black">
+      <TooltipTrigger className="line-clamp-1 text-center max-w-40 md:max-w-64 lg:max-w-full lg:text-start">
         {displayValue}
       </TooltipTrigger>
       <TooltipContent className="max-w-64 lg:max-w-80 break-words">

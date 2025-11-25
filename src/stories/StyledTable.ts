@@ -72,7 +72,7 @@ export const tableStyles: AppsmithTableStyles = {
 };
 
 export const StyledTableProps: TableModel = {
-  data: [],
+  tableData: [],
   max_count: 100,
   schema: postsSchema,
   rowActions: postsRowActions,

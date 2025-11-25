@@ -4,6 +4,7 @@ import {
   useReactTable,
   getCoreRowModel,
   getSortedRowModel,
+  type ColumnPinningState,
 } from "@tanstack/react-table";
 import TanstackTableBody from "@/components/tanstack-table/body";
 import TanstackTableHead from "@/components/tanstack-table/head";
@@ -24,20 +25,22 @@ function ClientTable(props: TableModel) {
     rowSelectionAction,
     actionColumn,
     indexRow,
-    data,
+    tableData,
     max_count,
     styles,
     limit = PER_PAGE,
     updateModel = () => {},
     triggerEvent = () => {},
+    onModelChange = () => {},
   } = props;
 
   const validation = validateTableModel(props);
   const [rowSelection, setRowSelection] = React.useState({});
   const [rowPinning, setRowPinning] = React.useState({});
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const [hasMore, setHasMore] = React.useState(true);
-  console.log(page);
+  const [data, setData] = React.useState(tableData || []);
+
   const [sorting] = React.useState([]);
 
   const getInitialPinning = React.useCallback(() => {
@@ -57,7 +60,9 @@ function ClientTable(props: TableModel) {
     return { left, right };
   }, [indexRow, actionColumn, rowActions]);
 
-  const [columnPinning, setColumnPinning] = React.useState(getInitialPinning());
+  const [columnPinning, setColumnPinning] = React.useState<ColumnPinningState>(
+    getInitialPinning()
+  );
 
   React.useEffect(() => {
     setColumnPinning(getInitialPinning());
@@ -88,7 +93,22 @@ function ClientTable(props: TableModel) {
     manualSorting: true,
   });
 
-  // Handle row selection
+  const handleLoadMore = (
+    inView: boolean,
+    entry: IntersectionObserverEntry
+  ) => {
+    if (
+      !inView ||
+      !hasMore ||
+      !entry.isIntersecting ||
+      data?.length < page * limit
+    )
+      return;
+    const next = page + 1;
+    setPage(next);
+    triggerEvent("onLoadMore", { page: next, limit });
+  };
+
   React.useEffect(() => {
     const selectedRowId = Object.keys(rowSelection)[0];
 
@@ -108,21 +128,21 @@ function ClientTable(props: TableModel) {
     }
   }, [rowSelection, rowSelectionAction, table]);
 
-  const handleLoadMore = (
-    inView: boolean,
-    entry: IntersectionObserverEntry
-  ) => {
-    if (!inView || !hasMore || !entry.isIntersecting) return;
-    const next = page + 1;
-    setPage(next);
-    triggerEvent("onLoadMore", { page: next, limit });
-  };
-
   React.useEffect(() => {
-    if (page * limit >= max_count) {
+    if (page * limit > max_count) {
       setHasMore(false);
     }
   }, [page, limit, max_count]);
+
+  React.useEffect(() => {
+    if (data?.length > 0) {
+      onModelChange((model: { data: Array<any> }) => {
+        if (model?.data?.length > 0 && model.data !== data) {
+          setData(model.data || []);
+        }
+      });
+    }
+  }, [data]);
 
   if (!validation.success) {
     return (
@@ -140,34 +160,33 @@ function ClientTable(props: TableModel) {
   return (
     <main
       className={cn(
-        "max-h-svh lg:max-h-[40rem] border-border xl:max-h-[48rem] relative flex flex-col gap-2 overflow-y-auto",
+        "max-h-svh lg:max-h-[40rem] border-border xl:max-h-[48rem] relative flex flex-col gap-2 overflow-y-auto font-sans",
         styles?.container
       )}
       style={{ ...styles?.variables }}
     >
       <Table
         className={cn(
-          "w-full min-w-96 table-auto border-collapse",
+          "w-full min-w-96 h-full table-auto border-collapse",
           styles?.table
         )}
       >
         <TanstackTableHead styles={styles?.head} table={table} />
-        <TanstackTableBody styles={styles?.body} table={table}>
-          {hasMore && (
-            <InView
-              triggerOnce={false}
-              as="div"
-              threshold={0}
-              rootMargin="200px 0px"
-              onChange={(inView, entry) => handleLoadMore(inView, entry)}
-              colSpan={table.getVisibleLeafColumns().length}
-              className="h-10 text-muted-foreground flex justify-center items-center"
-            >
-              <Loader className="animate-spin" />
-            </InView>
-          )}
-        </TanstackTableBody>
+        <TanstackTableBody styles={styles?.body} table={table} />
       </Table>
+      {hasMore && (
+        <InView
+          triggerOnce={false}
+          as="div"
+          threshold={0}
+          rootMargin="200px 0px"
+          onChange={(inView, entry) => handleLoadMore(inView, entry)}
+          colSpan={table.getVisibleLeafColumns().length}
+          className="h-10 text-muted-foreground flex justify-center items-center"
+        >
+          <Loader className="animate-spin" />
+        </InView>
+      )}
     </main>
   );
 }

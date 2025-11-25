@@ -24,7 +24,7 @@ const TanstackTableHead = <TData,>({ table, styles }: HeadProps<TData>) => {
               key={header.id}
               colSpan={header.colSpan}
               className={cn(
-                "whitespace-normal break-words text-center select-none border p-1 text-xs xs:text-sm lg:text-start min-w-8 lg:text-base lg:font-semibold lg:px-2",
+                "whitespace-normal break-words text-center border p-1 md:text-start min-w-8 md:px-2",
                 header.column.getCanSort() && "cursor-pointer",
                 styles?.cell
               )}

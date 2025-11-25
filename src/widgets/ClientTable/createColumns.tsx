@@ -10,7 +10,7 @@ const CreateColumns = TableModelSchema.omit({
   translations: true,
   rowSelectionAction: true,
   updateModel: true,
-  data: true,
+  tableData: true,
   limit: true,
   styles: true,
   max_count: true,

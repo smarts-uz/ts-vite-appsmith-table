@@ -1,9 +1,10 @@
 import "../tailwind.css";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState, useEffect } from "react";
 import ClientTable from "../widgets/ClientTable/ClientTable";
-import { ClientSideProps, generateData } from "./ClientSide";
+import { ClientSideProps } from "./ClientSide";
 import { StyledTableProps } from "./StyledTable";
+import { useState, useEffect } from "react";
+import { generateData } from "./ClientSide";
 
 // Storybook meta
 const meta: Meta<typeof ClientTable> = {
@@ -14,6 +15,7 @@ const meta: Meta<typeof ClientTable> = {
   argTypes: {
     triggerEvent: { action: "triggerEvent" },
     updateModel: { action: "updateModel" },
+    onModelChange: { action: "onModelChange" },
   },
 };
 
@@ -26,11 +28,11 @@ export const ClientSide: Story = {
     ...ClientSideProps,
   },
   render: function Render(args) {
-    const [data, setData] = useState(args.data);
+    const [data, setData] = useState(args.tableData);
 
     useEffect(() => {
-      setData(args.data);
-    }, [args.data]);
+      setData(args.tableData);
+    }, [args.tableData]);
 
     const onTriggerEvent = (event: string, payload: any) => {
       if (event === "onLoadMore") {
@@ -40,7 +42,9 @@ export const ClientSide: Story = {
       args.triggerEvent?.(event, payload);
     };
 
-    return <ClientTable {...args} data={data} triggerEvent={onTriggerEvent} />;
+    return (
+      <ClientTable {...args} tableData={data} triggerEvent={onTriggerEvent} />
+    );
   },
 };
 
