@@ -10,6 +10,7 @@ import {
   sizeClasses,
 } from "./styles";
 import { type AppsmithColumnMeta } from "@/types/index";
+import React from "react";
 
 type BodyProps<TData extends RowData> = {
   table: Table<TData>;
@@ -26,28 +27,26 @@ function TanstackTableBody<TData extends RowData>({
   triggerEvent,
   rowSelectionAction,
 }: BodyProps<TData>) {
+  const [rowSelection, setRowSelection] = React.useState<TData | null>(null);
+
   const handleRowSelection = (row: Row<TData>) => {
-    row.getToggleSelectedHandler();
     const selectedRow = row.original;
+    setRowSelection(selectedRow);
     updateModel?.({ selectedRow });
     if (selectedRow && rowSelectionAction) {
       triggerEvent?.(rowSelectionAction, { row: selectedRow });
     }
   };
+
   return (
     <TableBody className={styles?.body}>
       {table.getRowModel().rows.map((row) => (
         <TableRow
           key={row.id}
           onClick={() => handleRowSelection(row)}
+          data-state={rowSelection === row.original && "selected"}
           className={cn(
-            "odd:bg-background even:bg-secondary",
-            row.getIsSelected()
-              ? "odd:bg-primary/20 even:bg-primary/20 hover:bg-primary/30"
-              : "",
-            row.getCanSelect()
-              ? "cursor-pointer"
-              : "cursor-not-allowed bg-muted",
+            "odd:bg-background even:bg-secondary h-12",
             styles?.row
           )}
         >

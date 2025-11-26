@@ -20,7 +20,7 @@ const TanstackTableHead = <TData,>({ table, styles }: HeadProps<TData>) => {
   return (
     <TableHeader
       className={cn(
-        "top-0 z-20 sticky bg-card outline-border border-b outline",
+        "-top-1 z-20 sticky bg-card outline-[var(--border)] border-b outline",
         styles?.body
       )}
     >

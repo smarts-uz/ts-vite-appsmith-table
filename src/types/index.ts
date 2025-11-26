@@ -45,7 +45,10 @@ const TableBody = z.object({
   cell: z.string().optional(),
 });
 
-const TableHead = TableBody.extend({ icon: z.string().optional() });
+const TableHead = TableBody.extend({
+  icon: z.string().optional(),
+  container: z.string().optional(),
+});
 
 export const AppsmithTableStyles = z
   .object({

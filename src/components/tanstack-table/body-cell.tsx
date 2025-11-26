@@ -29,7 +29,7 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
   const content = (
     <div
       ref={cellRef}
-      className="truncate text-center max-w-40 md:max-w-64 lg:max-w-full lg:text-start"
+      className="truncate text-center max-w-[160px] md:max-w-[256px] lg:max-w-[320px] lg:text-start"
     >
       {displayValue}
     </div>
@@ -37,8 +37,18 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
 
   return isOverflowing ? (
     <Popover>
-      <PopoverTrigger title={displayValue}>{content}</PopoverTrigger>
-      <PopoverContent className="w-64 lg:w-80 break-words">
+      <PopoverTrigger
+        className="h-min max-w-40 md:max-w-64 lg:max-w-full lg:text-start"
+        onClick={(e) => e.stopPropagation()}
+        title={displayValue}
+      >
+        {content}
+      </PopoverTrigger>
+      <PopoverContent
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        align="center"
+        className="w-64 lg:w-80 break-words"
+      >
         {displayValue}
       </PopoverContent>
     </Popover>

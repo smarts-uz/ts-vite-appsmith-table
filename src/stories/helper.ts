@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
 export const mockSchema: Schema = {
   id: {
     title: "ID",
-    sort: true,
+    sort: false,
   },
   name: {
     title: "Name",

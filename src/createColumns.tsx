@@ -12,7 +12,6 @@ const CreateColumns = TableModelSchema.omit({
   updateModel: true,
   tableData: true,
   limit: true,
-  styles: true,
   max_count: true,
 });
 
@@ -23,6 +22,7 @@ export function createColumns<TData>({
   indexColumn,
   rowActions = [],
   actionColumn,
+  styles,
   triggerEvent,
 }: CreateColumnsProps): ColumnDef<TData>[] {
   const indexColumns: ColumnDef<TData>[] = [];
@@ -45,7 +45,11 @@ export function createColumns<TData>({
       const colDef: ColumnDef<TData> = {
         accessorKey: colKey,
         header: ({ column }) => (
-          <TableHeaderCell column={column} title={headerText} />
+          <TableHeaderCell
+            styles={styles?.head}
+            column={column}
+            title={headerText}
+          />
         ),
         enableSorting: sort,
         meta: {

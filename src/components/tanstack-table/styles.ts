@@ -12,11 +12,11 @@ export const sizeClasses: Record<ItemSize, string> = {
 export const getCommonPinningStyles = (column: any): CSSProperties => ({
   left:
     column.getIsPinned() === "left"
-      ? `${column.getStart("left")}px`
+      ? `${column.getStart("left") - 1.25}px`
       : undefined,
   right:
     column.getIsPinned() === "right"
-      ? `${column.getAfter("right")}px`
+      ? `${column.getAfter("right") - 1.25}px`
       : undefined,
   width: column.getSize(),
 });
@@ -25,7 +25,8 @@ export const getCommonPinningClasses = (column: any, className?: string) => {
   const isPinned = column.getIsPinned();
 
   return cn(
-    isPinned && "sticky z-10 bg-inherit max-w-12 outline outline-border",
+    isPinned &&
+      "sticky right-0 z-10 bg-inherit max-w-12 outline outline-[var(--border)]",
     className
   );
 };

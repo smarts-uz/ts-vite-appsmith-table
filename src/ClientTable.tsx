@@ -34,7 +34,6 @@ function ClientTable(props: TableModel) {
   } = props;
 
   const validation = validateTableModel(props);
-  const [rowSelection, setRowSelection] = React.useState({});
   const [page, setPage] = React.useState(0);
   const [hasMore, setHasMore] = React.useState(true);
   const [data, setData] = React.useState(tableData || []);
@@ -59,7 +58,6 @@ function ClientTable(props: TableModel) {
       if (actionColumn?.pin === PinDirection.left) left.push("actions");
       else if (actionColumn?.pin === PinDirection.right) right.push("actions");
     }
-    console.log(left, right, indexColumn, actionColumn);
     return { left, right };
   }, [indexColumn, actionColumn, rowActions]);
 
@@ -67,6 +65,7 @@ function ClientTable(props: TableModel) {
     schema,
     rowActions,
     indexColumn,
+    styles,
     actionColumn,
     triggerEvent,
   });
@@ -76,15 +75,11 @@ function ClientTable(props: TableModel) {
     columns,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
-      rowSelection,
       columnPinning: getInitialPinning(),
     },
-    enableRowSelection: true,
     manualSorting: true,
-    enableMultiRowSelection: false,
   });
 
   const handleLoadMore = (
@@ -102,11 +97,6 @@ function ClientTable(props: TableModel) {
     setPage(next);
     triggerEvent("onLoadMore", { page: next, limit });
   };
-
-  // React.useEffect(() => {
-  //   const selectedRow = table.getSelectedRowModel().flatRows[0]?.original;
-  //   updateModel({ selectedRow });
-  // }, [rowSelection, rowSelectionAction, table]);
 
   React.useEffect(() => {
     if (page * limit >= max_count) {
@@ -140,7 +130,7 @@ function ClientTable(props: TableModel) {
   return (
     <main
       className={cn(
-        "max-h-[36rem] lg:max-h-[40rem] border-border xl:max-h-[48rem] flex flex-col gap-2 overflow-auto font-sans relative pb-2",
+        "max-h-[36rem] lg:max-h-[40rem] xl:max-h-[48rem] flex flex-col gap-2 overflow-auto font-sans relative pb-2",
         styles?.container
       )}
       style={{ ...styles?.variables }}
