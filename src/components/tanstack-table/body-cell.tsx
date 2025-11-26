@@ -4,12 +4,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import type { ColumnType } from "@/types";
+import { formatUzPhone, formatDate, formatDateTime } from "@/lib/formatters";
 
 interface TableCellHoverProps {
   value: unknown;
+  type: ColumnType;
 }
 
-const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
+const TableBodyCell: React.FC<TableCellHoverProps> = ({ value, type }) => {
   const displayValue =
     typeof value === "object" ? JSON.stringify(value) : String(value);
   const cellRef = useRef<HTMLDivElement>(null);
@@ -31,7 +34,7 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
       ref={cellRef}
       className="truncate text-center max-w-[160px] md:max-w-[256px] lg:max-w-[320px] lg:text-start"
     >
-      {displayValue}
+      {renderCell(displayValue, type)}
     </div>
   );
 
@@ -55,6 +58,31 @@ const TableBodyCell: React.FC<TableCellHoverProps> = ({ value }) => {
   ) : (
     content
   );
+};
+
+const renderCell = (value: unknown, type: ColumnType) => {
+  switch (type) {
+    case "text":
+      return String(value);
+    case "url":
+      const [text, url] = String(value).split("|||");
+
+      return (
+        <a href={url} target="_blank" className="text-primary underline">
+          {text}
+        </a>
+      );
+    case "phone":
+      return formatUzPhone(String(value));
+    case "date":
+      return formatDate(value as string);
+    case "datetime":
+      return formatDateTime(value as string);
+    case "currency":
+      return Number(value).toLocaleString("uz-UZ");
+    default:
+      return String(value);
+  }
 };
 
 export default TableBodyCell;

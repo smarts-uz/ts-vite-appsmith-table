@@ -15,7 +15,6 @@ export const tableStyles: AppsmithTableStyles = {
     body: "bg-[var(--primary)] text-[var(--primary-foreground)]",
     row: "hover:bg-[var(--primary-foreground)] hover:text-[var(--primary)] transition-colors duration-200",
     cell: "border-b border-[var(--border)]",
-    icon: "text-[var(--secondary-foreground)] ",
   },
 
   body: {

@@ -65,7 +65,6 @@ function ClientTable(props: TableModel) {
     schema,
     rowActions,
     indexColumn,
-    styles,
     actionColumn,
     triggerEvent,
   });

@@ -3,7 +3,6 @@ import { ActionCell } from "./components/tanstack-table/action-cell";
 import { ItemSize } from "./constants";
 import { TableModelSchema, type AppsmithColumnMeta } from "./types";
 import type z from "zod";
-import TableHeaderCell from "./components/tanstack-table/header-cell";
 import TableBodyCell from "./components/tanstack-table/body-cell";
 
 const CreateColumns = TableModelSchema.omit({
@@ -13,6 +12,7 @@ const CreateColumns = TableModelSchema.omit({
   tableData: true,
   limit: true,
   max_count: true,
+  styles: true,
 });
 
 type CreateColumnsProps = z.infer<typeof CreateColumns>;
@@ -22,14 +22,13 @@ export function createColumns<TData>({
   indexColumn,
   rowActions = [],
   actionColumn,
-  styles,
   triggerEvent,
 }: CreateColumnsProps): ColumnDef<TData>[] {
   const indexColumns: ColumnDef<TData>[] = [];
   if (indexColumn?.enable) {
     indexColumns.push({
       id: "index",
-      header: "",
+      header: "№",
       meta: {
         size: ItemSize.xs,
       },
@@ -44,19 +43,18 @@ export function createColumns<TData>({
 
       const colDef: ColumnDef<TData> = {
         accessorKey: colKey,
-        header: ({ column }) => (
-          <TableHeaderCell
-            styles={styles?.head}
-            column={column}
-            title={headerText}
-          />
-        ),
+        header: headerText,
         enableSorting: sort,
         meta: {
           headerText,
           size,
         } as AppsmithColumnMeta,
-        cell: (info) => <TableBodyCell value={info.getValue()} />,
+        cell: (info) => (
+          <TableBodyCell
+            value={info.getValue()}
+            type={colSchema.type || "text"}
+          />
+        ),
       };
 
       return colDef;

@@ -2,19 +2,23 @@ import { cn } from "@/lib/utils";
 import { TableBody, TableRow, TableCell } from "../ui/table";
 import type { Table, RowData, Row } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
-import type { TableBodyStyles, UpdateModel, TriggerEvent } from "@/types/index";
+import type {
+  TableSectionStyles,
+  UpdateModel,
+  TriggerEvent,
+} from "@/types/index";
 import { ItemSize } from "@/constants";
 import {
   getCommonPinningStyles,
   getCommonPinningClasses,
-  sizeClasses,
+  bodySizeClasses,
 } from "./styles";
 import { type AppsmithColumnMeta } from "@/types/index";
 import React from "react";
 
 type BodyProps<TData extends RowData> = {
   table: Table<TData>;
-  styles?: TableBodyStyles;
+  styles?: TableSectionStyles;
   updateModel?: UpdateModel;
   triggerEvent?: TriggerEvent;
   rowSelectionAction?: string;
@@ -44,7 +48,7 @@ function TanstackTableBody<TData extends RowData>({
         <TableRow
           key={row.id}
           onClick={() => handleRowSelection(row)}
-          data-state={rowSelection === row.original && "selected"}
+          data-selected={rowSelection === row.original}
           className={cn(
             "odd:bg-background even:bg-secondary h-12",
             styles?.row
@@ -56,7 +60,7 @@ function TanstackTableBody<TData extends RowData>({
               className={cn(
                 "whitespace-normal break-words border text-center lg:text-start max-w-96 relative",
                 getCommonPinningClasses(cell.column),
-                sizeClasses[
+                bodySizeClasses[
                   (cell.column.columnDef.meta as AppsmithColumnMeta)?.size ||
                     ItemSize.md
                 ],

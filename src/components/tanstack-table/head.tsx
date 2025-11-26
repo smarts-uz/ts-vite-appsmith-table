@@ -2,18 +2,18 @@ import { flexRender } from "@tanstack/react-table";
 import type { Table } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 import { TableHeader, TableHead, TableRow } from "@/components/ui/table";
-import type { TableHeadStyles } from "@/types/index";
+import type { TableSectionStyles } from "@/types/index";
 import {
   getCommonPinningStyles,
   getCommonPinningClasses,
-  sizeClasses,
+  headSizeClasses,
 } from "./styles";
 import { type AppsmithColumnMeta } from "@/types/index";
 import { ItemSize } from "@/constants";
 
 interface HeadProps<TData> {
   table: Table<TData>;
-  styles?: TableHeadStyles;
+  styles?: TableSectionStyles;
 }
 
 const TanstackTableHead = <TData,>({ table, styles }: HeadProps<TData>) => {
@@ -34,7 +34,7 @@ const TanstackTableHead = <TData,>({ table, styles }: HeadProps<TData>) => {
                 "whitespace-normal break-words text-center border p-1 md:text-start min-w-8 md:px-2",
                 header.column.getCanSort() && "cursor-pointer",
                 getCommonPinningClasses(header.column, "bg-card"),
-                sizeClasses[
+                headSizeClasses[
                   (header.column.columnDef.meta as AppsmithColumnMeta)?.size ||
                     ItemSize.md
                 ],

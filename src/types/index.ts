@@ -3,7 +3,17 @@ import z from "zod";
 import * as LucideIcons from "lucide-react";
 import { type SortDirection } from "@tanstack/react-table";
 
+export const ColumnItemType = z.enum([
+  "text",
+  "url",
+  "phone",
+  "date",
+  "datetime",
+  "currency",
+]);
+
 const ColumnItemSchema = z.object({
+  type: ColumnItemType.default("text").optional(),
   sort: z.boolean().optional(),
   size: z.enum(ItemSize).optional(),
   title: z
@@ -39,21 +49,16 @@ export const TableSchema = z.record(z.string(), ColumnItemSchema, {
   error: "Schema not provided",
 });
 
-const TableBody = z.object({
+const TableSection = z.object({
   body: z.string().optional(),
   row: z.string().optional(),
   cell: z.string().optional(),
 });
 
-const TableHead = TableBody.extend({
-  icon: z.string().optional(),
-  container: z.string().optional(),
-});
-
 export const AppsmithTableStyles = z
   .object({
-    head: TableHead.optional(),
-    body: TableBody.optional(),
+    head: TableSection.optional(),
+    body: TableSection.optional(),
     container: z.string().optional(),
     table: z.string().optional(),
     variables: z.record(z.string(), z.string()).optional(),
@@ -114,8 +119,8 @@ export type IndexColumn = z.infer<typeof IndexColumnSchema>;
 export type ActionColumn = z.infer<typeof ActionColumnSchema>;
 export type RowAction = z.infer<typeof RowActionSchema>;
 export type Schema = z.infer<typeof TableSchema>;
-export type TableHeadStyles = z.infer<typeof TableHead>;
-export type TableBodyStyles = z.infer<typeof TableBody>;
+export type TableSectionStyles = z.infer<typeof TableSection>;
 export type AppsmithTableStyles = z.infer<typeof AppsmithTableStyles>;
 export type TriggerEvent = z.infer<typeof TriggerEventSchema>;
 export type UpdateModel = z.infer<typeof UpdateModelSchema>;
+export type ColumnType = z.infer<typeof ColumnItemType>;
