@@ -26,8 +26,8 @@ export function formatDateTime(input: string | number | Date): string {
 function normalizePhone(input: string): string {
   let digits = input.replace(/\D/g, "");
 
-  if (digits.startsWith("998")) {
-    digits = digits.slice(3);
+  if (digits.startsWith("+998")) {
+    digits = digits.slice(4);
   }
 
   return digits.slice(0, 9);
