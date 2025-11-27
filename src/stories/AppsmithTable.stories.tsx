@@ -93,7 +93,7 @@ export const ConditionallyStyledTable: Story = {
     docs: {
       description: {
         story:
-          "This story demonstrates a table with conditional row styling based on `Foydalanilgan kun` thresholds for over 100 blue, 200: yellow and 300 red. ",
+          "This story demonstrates a table with conditional row styling based on `Foydalanilgan kun` thresholds for over 150 blue, 300 red. and if debt_amount is less than total_payment_amount, it will be green otherwise red text.",
       },
     },
   },
