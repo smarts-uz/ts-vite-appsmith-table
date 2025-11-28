@@ -124,7 +124,8 @@ function ClientTable(props: TableModel) {
   return (
     <main
       className={cn(
-        "max-h-[40rem] md:max-h-[48rem] lg:max-h-[56rem] flex flex-col gap-2 overflow-auto font-sans relative pb-2",
+        "max-h-[40rem] md:max-h-[48rem] lg:max-h-[56rem] flex flex-col gap-2 overflow-auto font-sans relative ",
+        hasMore && "pb-2",
         styles?.container
       )}
       style={{ ...styles?.variables }}
