@@ -44,7 +44,7 @@ export function ActionCell<TData>({
       iconName && LucideIcons[iconName]
         ? (LucideIcons[iconName] as LucideIcon)
         : LucideIcons.Info;
-    return <Icon className="w-5 h-5" />;
+    return <Icon className="w-5 h-5 text-inherit" />;
   };
 
   if (onlyOne) {
