@@ -80,6 +80,7 @@ function ClientTable(props: TableModel) {
     schema,
     indexColumn,
     actionColumn,
+    updateModel,
     triggerEvent,
     locale,
   });

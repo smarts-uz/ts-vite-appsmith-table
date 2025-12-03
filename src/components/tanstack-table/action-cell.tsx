@@ -1,5 +1,5 @@
 import { Button, type ButtonVariant } from "@/components/ui/button";
-import type { ActionColumn, TriggerEvent } from "../../types";
+import type { ActionColumn, TriggerEvent, UpdateModel } from "../../types";
 import type { Row } from "@tanstack/react-table";
 import {
   DropdownMenu,
@@ -18,6 +18,7 @@ type ActionCellProps<TData> = {
   triggerEvent: TriggerEvent;
   type?: ButtonVariant;
   locale: string;
+  updateModel: UpdateModel;
 };
 
 export function ActionCell<TData>({
@@ -26,6 +27,7 @@ export function ActionCell<TData>({
   actionColumn,
   triggerEvent,
   locale,
+  updateModel,
 }: ActionCellProps<TData>) {
   const handleAction = (
     eventName: string,
@@ -34,6 +36,9 @@ export function ActionCell<TData>({
     e.stopPropagation();
     if (triggerEvent) {
       triggerEvent(eventName, { row: row.original });
+    }
+    if (updateModel) {
+      updateModel({ triggeredRow: row.original });
     }
   };
 

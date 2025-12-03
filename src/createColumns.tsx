@@ -7,7 +7,6 @@ import TableBodyCell from "./components/tanstack-table/body-cell";
 
 const CreateColumns = TableModelSchema.omit({
   rowSelectionAction: true,
-  updateModel: true,
   tableData: true,
   limit: true,
   max_count: true,
@@ -21,6 +20,7 @@ export function createColumns<TData>({
   schema,
   indexColumn,
   actionColumn,
+  updateModel,
   locale,
   triggerEvent,
 }: CreateColumnsProps): ColumnDef<TData>[] {
@@ -76,6 +76,7 @@ export function createColumns<TData>({
       },
       cell: ({ row }) => (
         <ActionCell
+          updateModel={updateModel}
           type={actionColumn.type}
           triggerEvent={triggerEvent}
           row={row}
